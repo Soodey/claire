@@ -17,74 +17,37 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Custom styles from globals.css and tailwind.config.ts */
-    @layer base {
-      :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --radius: 0.5rem;
-      }
-    }
-
+    /* Use Inter as the default font */
     body {
       font-family: 'Inter', sans-serif;
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
     }
-
-    /* Manually apply styles from @layer components/utilities */
-    .border { border-color: hsl(var(--border)); }
-    .bg-background { background-color: hsl(var(--background)); }
-    .bg-muted { background-color: hsl(var(--muted)); }
-    .text-muted-foreground { color: hsl(var(--muted-foreground)); }
-    .bg-primary { background-color: hsl(var(--primary)); }
-    .text-primary { color: hsl(var(--primary)); }
-    .text-primary-foreground { color: hsl(var(--primary-foreground)); }
-    .ring-ring { --tw-ring-color: hsl(var(--ring)); }
-    .bg-card { background-color: hsl(var(--card)); }
-    .text-card-foreground { color: hsl(var(--card-foreground)); }
-
-    .rounded-lg { border-radius: var(--radius); }
-    .rounded-md { border-radius: calc(var(--radius) - 2px); }
-    .rounded-sm { border-radius: calc(var(--radius) - 4px); }
-
-    .modal-overlay-visible { opacity: 1; }
-    .modal-content-visible { transform: translate(0, 0) scale(1); opacity: 1; }
+    /* Simple transitions for the modal */
+    #service-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #service-modal.is-open #service-modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
   </style>
 </head>
 
-<body>
+<body class="bg-white text-gray-900">
 <div class="flex min-h-screen flex-col">
   <!-- Header -->
-  <header id="main-header" class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div class="container flex h-16 items-center justify-between mx-auto px-4 md:px-6">
+  <header class="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur">
+    <div class="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
       <a href="#" class="flex items-center gap-2">
         <i data-lucide="dog" class="h-6 w-6"></i>
         <span class="text-xl font-bold">Claire Horvat</span>
       </a>
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex gap-6 text-sm font-medium">
-        <a href="#services" class="hover:text-primary transition-colors">Services</a>
-        <a href="#about" class="hover:text-primary transition-colors">About</a>
-        <a href="#testimonials" class="hover:text-primary transition-colors">Testimonials</a>
-        <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+        <a href="#services" class="text-gray-600 hover:text-gray-900 transition-colors">Services</a>
+        <a href="#about" class="text-gray-600 hover:text-gray-900 transition-colors">About</a>
+        <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+        <a href="#contact" class="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
       </nav>
       <!-- Mobile Navigation Trigger -->
       <button id="mobile-menu-trigger" class="md:hidden p-2">
@@ -92,37 +55,44 @@
         <span class="sr-only">Toggle menu</span>
       </button>
     </div>
-
-    <!-- Mobile Menu Sheet -->
-    <div id="mobile-menu-sheet" class="fixed inset-0 z-50 hidden">
-      <div id="mobile-menu-overlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-500"></div>
-      <div id="mobile-menu-content" class="fixed top-0 right-0 bottom-0 z-50 h-full w-[300px] sm:w-[400px] bg-background transform translate-x-full transition-transform duration-500 ease-in-out">
-        <nav class="flex flex-col gap-4 mt-8 p-6">
-          <a href="#services" class="mobile-nav-link text-lg font-medium hover:text-primary">Services</a>
-          <a href="#about" class="mobile-nav-link text-lg font-medium hover:text-primary">About</a>
-          <a href="#testimonials" class="mobile-nav-link text-lg font-medium hover:text-primary">Testimonials</a>
-          <a href="#contact" class="mobile-nav-link text-lg font-medium hover:text-primary">Contact</a>
-        </nav>
-      </div>
-    </div>
   </header>
+
+  <!-- Mobile Menu Sheet -->
+  <div id="mobile-menu-sheet" class="fixed inset-0 z-50 pointer-events-none">
+    <div id="mobile-menu-overlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300"></div>
+    <div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 z-50 h-full w-[300px] bg-white transform translate-x-full transition-transform duration-300 ease-in-out">
+      <div class="flex justify-end p-4">
+        <button id="mobile-menu-close" class="p-2">
+          <i data-lucide="x" class="h-6 w-6"></i>
+          <span class="sr-only">Close menu</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-4 p-6">
+        <a href="#services" class="mobile-nav-link text-lg font-medium hover:text-gray-900">Services</a>
+        <a href="#about" class="mobile-nav-link text-lg font-medium hover:text-gray-900">About</a>
+        <a href="#testimonials" class="mobile-nav-link text-lg font-medium hover:text-gray-900">Testimonials</a>
+        <a href="#contact" class="mobile-nav-link text-lg font-medium hover:text-gray-900">Contact</a>
+      </nav>
+    </div>
+  </div>
+
 
   <main class="flex-1">
     <!-- Hero Section -->
     <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48">
       <div class="container px-4 md:px-6 mx-auto">
-        <div class="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
               <h1 class="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Professional Dog Training & Behavior Modification</h1>
-              <p class="max-w-[600px] text-muted-foreground md:text-xl">Transform your dog's behavior with Claire Horvat's expert training methods. Specializing in positive reinforcement techniques for dogs of all ages and breeds.</p>
+              <p class="max-w-[600px] text-gray-500 md:text-xl">Transform your dog's behavior with Claire Horvat's expert training methods. Specializing in positive reinforcement techniques for dogs of all ages and breeds.</p>
             </div>
             <div class="flex flex-col gap-2 min-[400px]:flex-row">
-              <a href="#contact" class="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+              <a href="#contact" class="inline-flex h-12 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950">
                 Book a Consultation
                 <i data-lucide="chevron-right" class="ml-2 h-4 w-4"></i>
               </a>
-              <a href="#services" class="inline-flex h-12 items-center justify-center rounded-md border bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-muted">View Services</a>
+              <a href="#services" class="inline-flex h-12 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100">View Services</a>
             </div>
           </div>
           <div class="flex items-center justify-center">
@@ -133,54 +103,54 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="w-full py-12 md:py-24 lg:py-32 bg-muted">
+    <section id="services" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
       <div class="container px-4 md:px-6 mx-auto">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
           <div class="space-y-2">
             <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Training Services</h2>
-            <p class="max-w-[700px] text-muted-foreground md:text-xl">Comprehensive training programs tailored to your dog's specific needs. Click a service for more details.</p>
+            <p class="max-w-[700px] text-gray-500 md:text-xl">Comprehensive training programs tailored to your dog's specific needs. Click a service for more details.</p>
           </div>
         </div>
         <div class="mx-auto grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
           <!-- Service Cards -->
-          <div data-service-id="day-training" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+          <div data-service-id="day-training" class="service-card rounded-lg border bg-white text-gray-900 shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
             <div class="p-6 text-center">
-              <div class="mb-4 inline-block"><i data-lucide="sun" class="h-10 w-10 text-primary"></i></div>
+              <div class="mb-4 inline-block"><i data-lucide="sun" class="h-10 w-10 text-gray-900"></i></div>
               <h3 class="text-xl font-semibold">Day Training</h3>
-              <p class="text-sm text-muted-foreground mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
+              <p class="text-sm text-gray-500 mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
             </div>
             <div class="mt-auto p-6 pt-0 text-center">
-              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+              <span class="text-sm font-semibold text-gray-900">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
             </div>
           </div>
-          <div data-service-id="private-lessons" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+          <div data-service-id="private-lessons" class="service-card rounded-lg border bg-white text-gray-900 shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
             <div class="p-6 text-center">
-              <div class="mb-4 inline-block"><i data-lucide="user-check" class="h-10 w-10 text-primary"></i></div>
+              <div class="mb-4 inline-block"><i data-lucide="user-check" class="h-10 w-10 text-gray-900"></i></div>
               <h3 class="text-xl font-semibold">Private Lessons</h3>
-              <p class="text-sm text-muted-foreground mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
+              <p class="text-sm text-gray-500 mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
             </div>
             <div class="mt-auto p-6 pt-0 text-center">
-              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+              <span class="text-sm font-semibold text-gray-900">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
             </div>
           </div>
-          <div data-service-id="training-walks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+          <div data-service-id="training-walks" class="service-card rounded-lg border bg-white text-gray-900 shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
             <div class="p-6 text-center">
-              <div class="mb-4 inline-block"><i data-lucide="footprints" class="h-10 w-10 text-primary"></i></div>
+              <div class="mb-4 inline-block"><i data-lucide="footprints" class="h-10 w-10 text-gray-900"></i></div>
               <h3 class="text-xl font-semibold">Training Walks</h3>
-              <p class="text-sm text-muted-foreground mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
+              <p class="text-sm text-gray-500 mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
             </div>
             <div class="mt-auto p-6 pt-0 text-center">
-              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+              <span class="text-sm font-semibold text-gray-900">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
             </div>
           </div>
-          <div data-service-id="refresher-weeks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+          <div data-service-id="refresher-weeks" class="service-card rounded-lg border bg-white text-gray-900 shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
             <div class="p-6 text-center">
-              <div class="mb-4 inline-block"><i data-lucide="sparkles" class="h-10 w-10 text-primary"></i></div>
+              <div class="mb-4 inline-block"><i data-lucide="sparkles" class="h-10 w-10 text-gray-900"></i></div>
               <h3 class="text-xl font-semibold">Refresher Weeks</h3>
-              <p class="text-sm text-muted-foreground mt-1">For past clients to sharpen skills and tune-up previous training.</p>
+              <p class="text-sm text-gray-500 mt-1">For past clients to sharpen skills and tune-up previous training.</p>
             </div>
             <div class="mt-auto p-6 pt-0 text-center">
-              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+              <span class="text-sm font-semibold text-gray-900">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
             </div>
           </div>
         </div>
@@ -190,21 +160,21 @@
     <!-- About Section -->
     <section id="about" class="w-full py-12 md:py-24 lg:py-32">
       <div class="container mx-auto px-4 md:px-6">
-        <div class="grid gap-6 lg:grid-cols-2 lg:gap-12">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
           <div class="flex items-center justify-center">
             <img src="https://placehold.co/600x600/e5e7eb/111827?text=Claire+H.&font=inter" alt="Claire Horvat" class="rounded-lg object-cover">
           </div>
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
               <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">Meet Claire Horvat</h2>
-              <p class="text-muted-foreground md:text-xl">Certified Professional Dog Trainer with over 10 years of experience</p>
+              <p class="text-gray-500 md:text-xl">Certified Professional Dog Trainer with over 10 years of experience</p>
             </div>
-            <div class="space-y-4 text-muted-foreground">
+            <div class="space-y-4 text-gray-600">
               <p>Claire Horvat is a certified dog trainer specializing in positive reinforcement techniques and behavior modification. With over a decade of experience working with dogs of all breeds, ages, and behavioral challenges, Claire has developed a reputation for her compassionate and effective training methods.</p>
               <p>Claire believes that understanding the unique personality and needs of each dog is essential for successful training. Her approach focuses on building a strong bond between dogs and their owners through clear communication, consistency, and positive reinforcement.</p>
             </div>
-            <div class="flex flex-col gap-2 min-[400px]:flex-row">
-              <a href="#contact" class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90">Contact Claire</a>
+            <div class="flex">
+              <a href="#contact" class="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-gray-900/90">Contact Claire</a>
             </div>
           </div>
         </div>
@@ -212,12 +182,12 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="w-full py-12 md:py-24 lg:py-32 bg-muted">
-      <div id="testimonials-slider" class="container px-4 md:px-6 mx-auto">
+    <section id="testimonials" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+      <div class="container px-4 md:px-6 mx-auto">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
           <div class="space-y-2">
             <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">What Our Clients Say</h2>
-            <p class="max-w-[700px] text-muted-foreground md:text-xl">Success stories from dog owners who have worked with Claire.</p>
+            <p class="max-w-[700px] text-gray-500 md:text-xl">Success stories from dog owners who have worked with Claire.</p>
           </div>
         </div>
         <div class="relative py-12">
@@ -227,13 +197,11 @@
             </div>
           </div>
           <div class="flex justify-center mt-6 gap-2">
-            <button id="testimonial-prev" class="inline-flex items-center justify-center rounded-md border bg-background h-10 w-10 text-sm font-medium shadow-sm transition-colors hover:bg-muted disabled:opacity-50">
-              <i data-lucide="chevron-left" class="h-4 w-4"></i>
-              <span class="sr-only">Previous</span>
+            <button id="testimonial-prev" class="inline-flex items-center justify-center rounded-full border bg-white h-10 w-10 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 disabled:opacity-50">
+              <i data-lucide="chevron-left" class="h-4 w-4"></i><span class="sr-only">Previous</span>
             </button>
-            <button id="testimonial-next" class="inline-flex items-center justify-center rounded-md border bg-background h-10 w-10 text-sm font-medium shadow-sm transition-colors hover:bg-muted disabled:opacity-50">
-              <i data-lucide="chevron-right" class="h-4 w-4"></i>
-              <span class="sr-only">Next</span>
+            <button id="testimonial-next" class="inline-flex items-center justify-center rounded-full border bg-white h-10 w-10 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 disabled:opacity-50">
+              <i data-lucide="chevron-right" class="h-4 w-4"></i><span class="sr-only">Next</span>
             </button>
           </div>
         </div>
@@ -244,47 +212,40 @@
     <section id="contact" class="w-full py-12 md:py-24 lg:py-32">
       <div class="container px-4 md:px-6 mx-auto">
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
-          <div class="flex flex-col justify-center space-y-4">
+          <div class="space-y-4">
             <div class="space-y-2">
               <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">Get in Touch</h2>
-              <p class="max-w-[600px] text-muted-foreground md:text-xl">Ready to transform your dog's behavior? Contact Claire today to schedule a consultation.</p>
+              <p class="max-w-[600px] text-gray-500 md:text-xl">Ready to transform your dog's behavior? Contact Claire today to schedule a consultation.</p>
             </div>
             <div class="space-y-4">
-              <div class="flex items-center gap-2"><i data-lucide="phone" class="h-5 w-5 text-primary"></i><span>(555) 123-4567</span></div>
-              <div class="flex items-center gap-2"><i data-lucide="mail" class="h-5 w-5 text-primary"></i><span>claire.horvat.training@email.com</span></div>
-              <div class="flex items-center gap-2"><i data-lucide="map-pin" class="h-5 w-5 text-primary"></i><span>Chicago, IL</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="phone" class="h-5 w-5 text-gray-900"></i><span>(555) 123-4567</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="mail" class="h-5 w-5 text-gray-900"></i><span>claire.horvat.training@email.com</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="map-pin" class="h-5 w-5 text-gray-900"></i><span>Chicago, IL</span></div>
             </div>
           </div>
-          <div id="contact-form-container">
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-              <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                <div class="p-6">
-                  <h3 class="text-xl font-semibold mb-1">Request a Consultation</h3>
-                  <p class="text-sm text-muted-foreground mb-6">Fill out the form and Claire will get back to you.</p>
-                  <input type="hidden" name="access_key" value="8141f9e2-5f99-4464-8d2b-fd0d3fb7add6">
-                  <input type="hidden" name="subject" value="New Inquiry from Training Website">
-                  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                  <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                      <div class="space-y-1.5"><label for="first-name" class="text-sm font-medium">First name</label><input type="text" name="first_name" id="first-name" required placeholder="John" class="flex h-10 w-full rounded-md border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"></div>
-                      <div class="space-y-1.5"><label for="last-name" class="text-sm font-medium">Last name</label><input type="text" name="last_name" id="last-name" required placeholder="Doe" class="flex h-10 w-full rounded-md border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"></div>
-                    </div>
-                    <div class="space-y-1.5"><label for="email" class="text-sm font-medium">Email</label><input type="email" name="email" id="email" required placeholder="john@example.com" class="flex h-10 w-full rounded-md border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"></div>
-                    <div class="space-y-1.5"><label for="dog-info" class="text-sm font-medium">Tell us about your dog</label><textarea name="dog_info" id="dog-info" placeholder="Breed, age, and specific behavior concerns" rows="4" class="flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"></textarea></div>
+          <div id="contact-form-wrapper">
+            <div id="contact-form-container" class="rounded-lg border bg-white shadow-sm">
+              <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="p-6">
+                <h3 class="text-xl font-semibold mb-1">Request a Consultation</h3>
+                <p class="text-sm text-gray-500 mb-6">Fill out the form and Claire will get back to you.</p>
+                <input type="hidden" name="access_key" value="8141f9e2-5f99-4464-8d2b-fd0d3fb7add6">
+                <input type="hidden" name="subject" value="New Inquiry from Training Website">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <div class="space-y-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5"><label for="first-name" class="text-sm font-medium">First name</label><input type="text" name="first_name" id="first-name" required placeholder="John" class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-gray-900 focus:outline-none"></div>
+                    <div class="space-y-1.5"><label for="last-name" class="text-sm font-medium">Last name</label><input type="text" name="last_name" id="last-name" required placeholder="Doe" class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-gray-900 focus:outline-none"></div>
                   </div>
-                </div>
-                <div class="flex items-center p-6 pt-0">
-                  <button id="submit-button" type="submit" class="w-full inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-primary-foreground h-10 px-4 py-2 hover:bg-primary/90">Submit Request</button>
+                  <div class="space-y-1.5"><label for="email" class="text-sm font-medium">Email</label><input type="email" name="email" id="email" required placeholder="john@example.com" class="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-gray-900 focus:outline-none"></div>
+                  <div class="space-y-1.5"><label for="dog-info" class="text-sm font-medium">Tell us about your dog</label><textarea name="dog_info" id="dog-info" placeholder="Breed, age, and specific behavior concerns" rows="4" class="flex min-h-[80px] w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-gray-900 focus:outline-none"></textarea></div>
+                  <button id="submit-button" type="submit" class="w-full inline-flex items-center justify-center rounded-md text-sm font-medium bg-gray-900 text-white h-10 px-4 py-2 hover:bg-gray-900/90">Submit Request</button>
                 </div>
               </form>
             </div>
-            <p id="form-status" class="mt-4 text-center text-sm text-muted-foreground"></p>
-          </div>
-          <div id="success-message" class="hidden">
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 text-center">
+            <p id="form-status" class="mt-4 text-center text-sm text-gray-500"></p>
+            <div id="success-message" class="hidden rounded-lg border bg-white shadow-sm p-6 text-center">
               <h3 class="text-2xl font-bold mb-4">Thank You!</h3>
-              <p class="text-muted-foreground">Your request has been sent successfully. Claire will get back to you as soon as possible.</p>
+              <p class="text-gray-500">Your request has been sent successfully. Claire will get back to you shortly.</p>
             </div>
           </div>
         </div>
@@ -292,33 +253,28 @@
     </section>
   </main>
 
-  <footer class="w-full border-t py-6 md:py-0 bg-muted">
+  <footer class="w-full border-t py-6 md:py-0 bg-gray-100">
     <div class="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:h-24 md:flex-row">
-      <div class="flex items-center gap-2">
-        <p class="text-sm text-muted-foreground">&copy; <span id="year"></span> Claire Horvat Dog Training. All rights reserved.</p>
-      </div>
+      <p class="text-sm text-gray-500">&copy; <span id="year"></span> Claire Horvat Dog Training. All rights reserved.</p>
       <div class="flex gap-4">
-        <a href="#" class="text-sm text-muted-foreground hover:text-primary">Privacy Policy</a>
-        <a href="#" class="text-sm text-muted-foreground hover:text-primary">Terms of Service</a>
+        <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Privacy Policy</a>
+        <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Terms of Service</a>
       </div>
     </div>
   </footer>
 </div>
 
 <!-- Service Details Modal -->
-<div id="service-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-  <!-- Overlay -->
-  <div id="service-modal-overlay" class="fixed inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-out"></div>
-  <!-- Content -->
-  <div id="service-modal-content" class="relative bg-card rounded-lg shadow-xl w-full max-w-lg transform scale-95 opacity-0 transition-all duration-300 ease-out">
+<div id="service-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div id="service-modal-content" class="bg-white rounded-lg shadow-xl w-full max-w-lg transform scale-95 opacity-0 transition-all duration-300 ease-out">
     <div class="p-6">
       <div class="flex items-start justify-between">
-        <h3 id="service-modal-title" class="text-xl font-semibold text-card-foreground"></h3>
-        <button id="service-modal-close-btn" class="p-1 -mt-1 -mr-1 rounded-full hover:bg-muted">
-          <i data-lucide="x" class="h-5 w-5 text-muted-foreground"></i>
+        <h3 id="service-modal-title" class="text-xl font-semibold"></h3>
+        <button id="service-modal-close-btn" class="p-1 -mt-1 -mr-1 rounded-full hover:bg-gray-100">
+          <i data-lucide="x" class="h-5 w-5 text-gray-500"></i>
         </button>
       </div>
-      <div id="service-modal-body" class="mt-4 text-sm text-muted-foreground space-y-4">
+      <div id="service-modal-body" class="mt-4 text-sm text-gray-600 space-y-4">
         <!-- Service details will be injected here -->
       </div>
     </div>
@@ -328,302 +284,212 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Lucide Icons
+    // === Initialize Page Elements ===
     lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Set current year in footer
-    const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-      yearSpan.textContent = new Date().getFullYear();
-    }
+    // === Mobile Navigation ===
+    const mobileMenu = {
+      sheet: document.getElementById('mobile-menu-sheet'),
+      overlay: document.getElementById('mobile-menu-overlay'),
+      content: document.getElementById('mobile-menu-content'),
+      trigger: document.getElementById('mobile-menu-trigger'),
+      closeBtn: document.getElementById('mobile-menu-close'),
+      links: document.querySelectorAll('.mobile-nav-link'),
 
-    // Mobile Navigation Logic
-    const trigger = document.getElementById('mobile-menu-trigger');
-    const sheet = document.getElementById('mobile-menu-sheet');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const content = document.getElementById('mobile-menu-content');
-    const navLinks = document.querySelectorAll('.mobile-nav-link');
-
-    function openMenu() {
-      sheet.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        overlay.classList.add('opacity-100');
-        content.classList.remove('translate-x-full');
-      }, 10);
-    }
-
-    function closeMenu() {
-      overlay.classList.remove('opacity-100');
-      content.classList.add('translate-x-full');
-      setTimeout(() => {
-        sheet.classList.add('hidden');
+      open() {
+        this.sheet.style.pointerEvents = 'auto';
+        this.overlay.style.opacity = '1';
+        this.content.style.transform = 'translateX(0)';
+        document.body.style.overflow = 'hidden';
+      },
+      close() {
+        this.sheet.style.pointerEvents = 'none';
+        this.overlay.style.opacity = '0';
+        this.content.style.transform = 'translate-x-full';
         document.body.style.overflow = '';
-      }, 500);
-    }
-
-    if (trigger) {
-      trigger.addEventListener('click', openMenu);
-      overlay.addEventListener('click', closeMenu);
-      navLinks.forEach(link => link.addEventListener('click', closeMenu));
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !sheet.classList.contains('hidden')) {
-          closeMenu();
-        }
-      });
-    }
-
-    // Service Modal Logic
-    const servicesData = {
-      'day-training': {
-        title: 'Day Training',
-        description: 'Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. This is perfect for busy owners who want to accelerate their dog\'s learning.',
-        features: [
-          'Accelerated learning in a focused environment',
-          'Daily one-on-one professional training',
-          'Socialization with other dogs and people',
-          'End-of-day transfer sessions to empower you'
-        ]
-      },
-      'private-lessons': {
-        title: 'Private Lessons',
-        description: 'Private lessons are tailored to your specific needs and goals. I\'ll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands.',
-        features: [
-          'Personalized training plan for your dog',
-          'Hands-on coaching in your own home',
-          'Flexible scheduling to fit your life',
-          'Focus on specific issues like reactivity or basic manners'
-        ]
-      },
-      'training-walks': {
-        title: 'Training Walks',
-        description: 'Training Walks combine physical exercise with structured training. These aren\'t just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world.',
-        features: [
-          'Improves leash manners and reduces pulling',
-          'Builds confidence in reactive or anxious dogs',
-          'Provides mental and physical stimulation',
-          'Makes your own walks more enjoyable'
-        ]
-      },
-      'refresher-weeks': {
-        title: 'Refresher Weeks',
-        description: 'Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors.',
-        features: [
-          'Exclusive to previous Day Training clients',
-          'Sharpens existing skills and commands',
-          'Addresses any new behaviors that may have emerged',
-          'Ensures long-term training success'
-        ]
       }
     };
 
-    const serviceCards = document.querySelectorAll('.service-card');
-    const modal = document.getElementById('service-modal');
-    const modalOverlay = document.getElementById('service-modal-overlay');
-    const modalContent = document.getElementById('service-modal-content');
-    const modalTitle = document.getElementById('service-modal-title');
-    const modalBody = document.getElementById('service-modal-body');
-    const modalCloseBtn = document.getElementById('service-modal-close-btn');
+    mobileMenu.trigger.addEventListener('click', () => mobileMenu.open());
+    mobileMenu.closeBtn.addEventListener('click', () => mobileMenu.close());
+    mobileMenu.overlay.addEventListener('click', () => mobileMenu.close());
+    mobileMenu.links.forEach(link => link.addEventListener('click', () => mobileMenu.close()));
 
-    // DEBUG: Log the elements to ensure they are selected correctly
-    console.log('Modal elements selected:', {
-      modal,
-      modalOverlay,
-      modalContent,
-      modalCloseBtn,
-      serviceCards
-    });
+    // === Services Modal ===
+    const servicesData = {
+      'day-training': { title: 'Day Training', description: "Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. This is perfect for busy owners who want to accelerate their dog's learning.", features: ['Accelerated learning in a focused environment', 'Daily one-on-one professional training', 'Socialization with other dogs and people', 'End-of-day transfer sessions to empower you'] },
+      'private-lessons': { title: 'Private Lessons', description: "Private lessons are tailored to your specific needs and goals. I'll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands.", features: ['Personalized training plan for your dog', 'Hands-on coaching in your own home', 'Flexible scheduling to fit your life', 'Focus on specific issues like reactivity or basic manners'] },
+      'training-walks': { title: 'Training Walks', description: "Training Walks combine physical exercise with structured training. These aren't just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world.", features: ['Improves leash manners and reduces pulling', 'Builds confidence in reactive or anxious dogs', 'Provides mental and physical stimulation', 'Makes your own walks more enjoyable'] },
+      'refresher-weeks': { title: 'Refresher Weeks', description: "Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors.", features: ['Exclusive to previous Day Training clients', 'Sharpens existing skills and commands', 'Addresses any new behaviors that may have emerged', 'Ensures long-term training success'] }
+    };
 
+    const servicesSection = document.getElementById('services');
+    const serviceModal = {
+      el: document.getElementById('service-modal'),
+      title: document.getElementById('service-modal-title'),
+      body: document.getElementById('service-modal-body'),
+      closeBtn: document.getElementById('service-modal-close-btn'),
 
-    function openServiceModal(serviceId) {
-      // DEBUG: Log function call and the passed serviceId
-      console.log(`openServiceModal called with serviceId: "${serviceId}"`);
-      const service = servicesData[serviceId];
-      if (!service) {
-        // DEBUG: Log if the service data is not found
-        console.error(`Service data not found for id: "${serviceId}"`);
-        return;
-      }
-      // DEBUG: Log the found service data
-      console.log('Found service data:', service);
+      open(serviceId) {
+        const service = servicesData[serviceId];
+        if (!service) return;
 
-      modalTitle.textContent = service.title;
-      const featuresHTML = service.features.map(feature => `
-                <li class="flex items-start gap-3">
-                    <i data-lucide="check-circle" class="h-4 w-4 text-primary mt-1 flex-shrink-0"></i>
-                    <span>${feature}</span>
-                </li>
-            `).join('');
-      modalBody.innerHTML = `<p>${service.description}</p><ul class="mt-4 space-y-2">${featuresHTML}</ul>`;
-      lucide.createIcons();
-
-      // DEBUG: Log before changing modal classes
-      console.log('Modal classes before opening:', modal.className);
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      // DEBUG: Log after changing modal classes
-      console.log('Modal classes after removing "hidden":', modal.className);
-
-      setTimeout(() => {
-        // DEBUG: Log inside setTimeout to confirm it runs
-        console.log('Executing setTimeout to make modal content visible.');
-        modalOverlay.classList.add('modal-overlay-visible');
-        modalContent.classList.add('modal-content-visible');
-        // DEBUG: Log the classes of the overlay and content pane
-        console.log('Overlay classes:', modalOverlay.className);
-        console.log('Content classes:', modalContent.className);
-      }, 10);
-    }
-
-    function closeServiceModal() {
-      // DEBUG: Log when the close function is called
-      console.log('closeServiceModal called.');
-      modalOverlay.classList.remove('modal-overlay-visible');
-      modalContent.classList.remove('modal-content-visible');
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-        // DEBUG: Log that the modal is now hidden
-        console.log('Modal is hidden.');
-      }, 300);
-    }
-
-    serviceCards.forEach(card => {
-      // DEBUG: Log for each card that an event listener is being added
-      console.log(`Adding click listener to card with data-service-id: "${card.dataset.serviceId}"`);
-      card.addEventListener('click', () => {
-        // DEBUG: Log when a card is clicked
-        console.log(`Card clicked: "${card.dataset.serviceId}"`);
-        openServiceModal(card.dataset.serviceId);
-      });
-    });
-
-    if (modal) {
-      modalOverlay.addEventListener('click', closeServiceModal);
-      modalCloseBtn.addEventListener('click', closeServiceModal);
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-          // DEBUG: Log escape key press
-          console.log('Escape key pressed, closing modal.');
-          closeServiceModal();
-        }
-      });
-    }
-
-
-    // Testimonials Slider Logic
-    const testimonials = [
-      { id: 1, name: "Sarah Johnson", dogName: "Max", dogBreed: "German Shepherd", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=SJ", text: "Claire completely transformed our German Shepherd's behavior. Max used to be reactive around other dogs, but after six weeks of training, he's calm and confident. Claire's methods are effective and humane. I can't recommend her enough!" },
-      { id: 2, name: "Michael Rodriguez", dogName: "Bella", dogBreed: "Labrador Retriever", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=MR", text: "We adopted Bella as a puppy and had no idea what we were doing. Claire's puppy training program gave us the tools and confidence to raise a well-behaved dog. Bella is now 1 year old and such a joy to have in our family." },
-      { id: 3, name: "Jennifer Lee", dogName: "Cooper", dogBreed: "Border Collie Mix", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=JL", text: "Cooper had severe separation anxiety when we first got him from the shelter. Claire worked with us patiently to address the root causes. Her behavior modification techniques made a huge difference." },
-      { id: 4, name: "David Wilson", dogName: "Luna", dogBreed: "Goldendoodle", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=DW", text: "Claire's group classes were perfect for our energetic Goldendoodle. Luna learned how to behave around other dogs and people, and we learned how to be consistent with our training." },
-      { id: 5, name: "Emily Thompson", dogName: "Rocky", dogBreed: "Pit Bull", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=ET", text: "We were at our wit's end with Rocky's leash reactivity. Other trainers suggested harsh methods, but Claire showed us how positive reinforcement could work even for difficult cases." }
-    ];
-
-    const track = document.getElementById('testimonials-track');
-    const nextButton = document.getElementById('testimonial-next');
-    const prevButton = document.getElementById('testimonial-prev');
-
-    if (track) {
-      let currentIndex = 0;
-      let visibleCount = 3;
-
-      function updateVisibleCount() {
-        if (window.innerWidth < 768) visibleCount = 1;
-        else if (window.innerWidth < 1024) visibleCount = 2;
-        else visibleCount = 3;
-        renderSlider();
-      }
-
-      function renderSlider() {
-        track.innerHTML = testimonials.map(t => `
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex-shrink-0" style="width: calc((100% - ${(visibleCount - 1) * 1.5}rem) / ${visibleCount})">
-                      <div class="p-6">
-                        <div class="flex items-center gap-4 mb-4">
-                          <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
-                          <div><h3 class="font-medium">${t.name}</h3><p class="text-sm text-muted-foreground">${t.dogName} &bull; ${t.dogBreed}</p></div>
-                        </div>
-                        <p class="text-muted-foreground">${t.text}</p>
-                      </div>
-                    </div>
-                `).join('');
+        this.title.textContent = service.title;
+        const featuresHTML = service.features.map(feature =>
+                `<li class="flex items-start gap-3"><i data-lucide="check-circle" class="h-4 w-4 text-gray-900 mt-1 flex-shrink-0"></i><span>${feature}</span></li>`
+        ).join('');
+        this.body.innerHTML = `<p>${service.description}</p><ul class="mt-4 space-y-2">${featuresHTML}</ul>`;
         lucide.createIcons();
 
-        const cardWidth = track.children[0] ? track.children[0].offsetWidth : 0;
-        const gap = 24;
-        track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
-
-        prevButton.disabled = currentIndex === 0;
-        nextButton.disabled = currentIndex >= testimonials.length - visibleCount;
+        this.el.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      },
+      close() {
+        this.el.classList.remove('is-open');
+        document.body.style.overflow = '';
       }
+    };
 
-      nextButton.addEventListener('click', () => {
-        if (currentIndex < testimonials.length - visibleCount) {
-          currentIndex++;
-          renderSlider();
+    // Event delegation for service cards
+    servicesSection.addEventListener('click', (e) => {
+      const card = e.target.closest('.service-card');
+      if (card && card.dataset.serviceId) {
+        serviceModal.open(card.dataset.serviceId);
+      }
+    });
+
+    serviceModal.closeBtn.addEventListener('click', () => serviceModal.close());
+    serviceModal.el.addEventListener('click', (e) => {
+      if(e.target === serviceModal.el) {
+        serviceModal.close();
+      }
+    });
+
+    // Close modals on Escape key press
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        serviceModal.close();
+        mobileMenu.close();
+      }
+    });
+
+
+    // === Testimonials Slider ===
+    const testimonials = [
+      { name: "Sarah Johnson", dogInfo: "Max &bull; German Shepherd", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=SJ", text: "Claire completely transformed our German Shepherd's behavior. Max used to be reactive around other dogs, but after six weeks of training, he's calm and confident. Claire's methods are effective and humane. I can't recommend her enough!" },
+      { name: "Michael Rodriguez", dogInfo: "Bella &bull; Labrador Retriever", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=MR", text: "We adopted Bella as a puppy and had no idea what we were doing. Claire's puppy training program gave us the tools and confidence to raise a well-behaved dog. Bella is now 1 year old and such a joy to have in our family." },
+      { name: "Jennifer Lee", dogInfo: "Cooper &bull; Border Collie Mix", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=JL", text: "Cooper had severe separation anxiety when we first got him from the shelter. Claire worked with us patiently to address the root causes. Her behavior modification techniques made a huge difference." },
+      { name: "David Wilson", dogInfo: "Luna &bull; Goldendoodle", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=DW", text: "Claire's group classes were perfect for our energetic Goldendoodle. Luna learned how to behave around other dogs and people, and we learned how to be consistent with our training." },
+      { name: "Emily Thompson", dogInfo: "Rocky &bull; Pit Bull", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=ET", text: "We were at our wit's end with Rocky's leash reactivity. Other trainers suggested harsh methods, but Claire showed us how positive reinforcement could work even for difficult cases." }
+    ];
+
+    const slider = {
+      track: document.getElementById('testimonials-track'),
+      nextBtn: document.getElementById('testimonial-next'),
+      prevBtn: document.getElementById('testimonial-prev'),
+      currentIndex: 0,
+      visibleCount: 3,
+
+      init() {
+        if(!this.track) return;
+        window.addEventListener('resize', () => this.update());
+        this.nextBtn.addEventListener('click', () => this.next());
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.update();
+      },
+      update() {
+        if (window.innerWidth < 768) this.visibleCount = 1;
+        else if (window.innerWidth < 1024) this.visibleCount = 2;
+        else this.visibleCount = 3;
+        this.render();
+      },
+      render() {
+        this.track.innerHTML = testimonials.map(t => `
+                <div class="rounded-lg border bg-white shadow-sm flex-shrink-0" style="width: calc((100% - ${(this.visibleCount - 1) * 1.5}rem) / ${this.visibleCount})">
+                    <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
+                        <div><h3 class="font-medium">${t.name}</h3><p class="text-sm text-gray-500">${t.dogInfo}</p></div>
+                    </div>
+                    <p class="text-gray-600">${t.text}</p>
+                    </div>
+                </div>
+            `).join('');
+        this.updateButtons();
+        this.slide();
+      },
+      slide() {
+        const cardWidth = this.track.children[0] ? this.track.children[0].offsetWidth : 0;
+        const gap = 24; // Corresponds to gap-6
+        this.track.style.transform = `translateX(-${this.currentIndex * (cardWidth + gap)}px)`;
+      },
+      next() {
+        if (this.currentIndex < testimonials.length - this.visibleCount) {
+          this.currentIndex++;
+          this.slide();
+          this.updateButtons();
         }
-      });
-
-      prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          renderSlider();
+      },
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.slide();
+          this.updateButtons();
         }
-      });
+      },
+      updateButtons() {
+        this.prevBtn.disabled = this.currentIndex === 0;
+        this.nextBtn.disabled = this.currentIndex >= testimonials.length - this.visibleCount;
+      }
+    };
+    slider.init();
 
-      window.addEventListener('resize', updateVisibleCount);
-      updateVisibleCount();
-    }
+    // === Contact Form ===
+    const contactForm = {
+      form: document.getElementById('contact-form'),
+      wrapper: document.getElementById('contact-form-wrapper'),
+      container: document.getElementById('contact-form-container'),
+      successMsg: document.getElementById('success-message'),
+      statusMsg: document.getElementById('form-status'),
+      submitBtn: document.getElementById('submit-button'),
 
-
-    // Contact Form Logic
-    const form = document.getElementById('contact-form');
-    if (form) {
-      const formContainer = document.getElementById('contact-form-container');
-      const successMessage = document.getElementById('success-message');
-      const statusMessage = document.getElementById('form-status');
-      const submitButton = document.getElementById('submit-button');
-
-      form.addEventListener('submit', function (e) {
+      init() {
+        if(!this.form) return;
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      },
+      handleSubmit(e) {
         e.preventDefault();
-
-        const formData = new FormData(form);
+        const formData = new FormData(this.form);
         formData.set('name', `${formData.get('first_name')} ${formData.get('last_name')}`);
+        const json = JSON.stringify(Object.fromEntries(formData));
 
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        statusMessage.innerHTML = "Submitting...";
-        statusMessage.classList.remove('text-red-500');
-        submitButton.disabled = true;
-        submitButton.innerHTML = 'Submitting...';
+        this.statusMsg.textContent = "Submitting...";
+        this.submitBtn.disabled = true;
 
         fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: json
         })
-                .then(async (response) => {
-                  let jsonResponse = await response.json();
-                  if (response.status == 200) {
-                    formContainer.style.display = 'none';
-                    statusMessage.style.display = 'none';
-                    successMessage.classList.remove('hidden');
+                .then(res => res.json())
+                .then(data => {
+                  if (data.success) {
+                    this.container.style.display = 'none';
+                    this.statusMsg.style.display = 'none';
+                    this.successMsg.classList.remove('hidden');
                   } else {
-                    statusMessage.innerHTML = jsonResponse.message || "An error occurred.";
-                    statusMessage.classList.add('text-red-500');
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = 'Submit Request';
+                    this.statusMsg.textContent = data.message || "An error occurred.";
+                    this.submitBtn.disabled = false;
                   }
                 })
                 .catch(error => {
-                  statusMessage.innerHTML = "Something went wrong. Please try again.";
-                  statusMessage.classList.add('text-red-500');
-                  submitButton.disabled = false;
-                  submitButton.innerHTML = 'Submit Request';
+                  this.statusMsg.textContent = "Something went wrong. Please try again.";
+                  this.submitBtn.disabled = false;
                 });
-      });
-    }
+      }
+    };
+    contactForm.init();
   });
 </script>
 </body>
