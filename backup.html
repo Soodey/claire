@@ -191,24 +191,24 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <form action="https://formspree.io/f/yourFormID" method="POST">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="_replyto" placeholder="name@example.com" required />
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
-            </div>
-            <!-- Optional hidden field to set the email subject -->
-            <input type="hidden" name="_subject" value="New inquiry from Claire Horvat's portfolio" />
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
-            </div>
+          <form action="https://api.web3forms.com/submit" method="POST">
+          
+              <!-- Replace with your Access Key -->
+              <input type="hidden" name="access_key" value="8141f9e2-5f99-4464-8d2b-fd0d3fb7add6">
+          
+              <!-- Form Inputs. Each input must have a name="" attribute -->
+              <input type="text" name="name" required>
+              <input type="email" name="email" required>
+              <textarea name="message" required></textarea>
+          
+              <!-- Honeypot Spam Protection -->
+              <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          
+              <!-- Custom Confirmation / Success Page -->
+              <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
+          
+              <button type="submit">Submit Form</button>
+          
           </form>
         </div>
       </div>
