@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claire Horvat - Dog Training & Behavior Modification</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Alpine.js for interactivity -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* Custom styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc; /* bg-slate-50 */
+    }
+    .modal-enter {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    .modal-enter-active {
+      transition: all 0.2s ease-out;
+    }
+    .modal-leave-active {
+      transition: all 0.2s ease-in;
+    }
+    .modal-leave-to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    /* Prevents page scroll when modal is open */
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+
+<body x-data="{
+    isModalOpen: false,
+    modalTitle: '',
+    modalContent: ''
+  }"
+      x-on:keydown.escape.window="isModalOpen = false"
+      :class="{ 'overflow-y-hidden': isModalOpen }">
+
+<!-- Header & Navigation -->
+<header x-data="{ isOpen: false }" class="bg-white/80 backdrop-blur-lg sticky top-0 z-40 shadow-sm">
+  <div class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a href="#" class="text-xl font-bold text-slate-900 tracking-tight">Claire Horvat</a>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#services" class="text-slate-600 hover:text-indigo-600 transition-colors">Services</a>
+        <a href="#about" class="text-slate-600 hover:text-indigo-600 transition-colors">About</a>
+        <a href="#contact" class="text-slate-600 hover:text-indigo-600 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button @click="isOpen = !isOpen" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div x-show="isOpen" @click.away="isOpen = false" class="md:hidden bg-white shadow-lg">
+    <a href="#services" @click="isOpen = false" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-100">Services</a>
+    <a href="#about" @click="isOpen = false" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-100">About</a>
+    <a href="#contact" @click="isOpen = false" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-100">Contact</a>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main>
+  <!-- Hero Section -->
+  <section class="relative py-20 sm:py-32 bg-white">
+    <div class="container mx-auto px-6 text-center">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 leading-tight tracking-tighter">
+          Building Better Bonds
+        </h1>
+        <p class="mt-6 text-lg text-slate-600">
+          Professional dog training and behavior modification focused on creating harmony between you and your canine companion.
+        </p>
+        <a href="#contact" class="mt-8 inline-block bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition-all transform hover:-translate-y-0.5">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 sm:py-32">
+    <div class="container mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">My Services</h2>
+        <p class="mt-4 text-lg text-slate-600">
+          Tailored training solutions to help you and your dog thrive together. Click to learn more.
+        </p>
+      </div>
+      <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Service Card 1: Day Training -->
+        <div @click="isModalOpen = true; modalTitle = 'Day Training'; modalContent = 'Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. We\'ll cover obedience, socialization, and specific behavior goals. At the end of each day, we\'ll have a transfer session to show you how to maintain the progress. This is perfect for busy owners who want to accelerate their dog\'s learning.'"
+             class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+          <h3 class="text-xl font-semibold text-slate-900">Day Training</h3>
+          <p class="mt-2 text-slate-600">Intensive, one-on-one training for your dog while you're at work.</p>
+          <span class="mt-4 inline-block text-indigo-600 font-semibold">Learn More &rarr;</span>
+        </div>
+        <!-- Service Card 2: Private Lessons -->
+        <div @click="isModalOpen = true; modalTitle = 'Private Lessons'; modalContent = 'Private lessons are tailored to your specific needs and goals. I\'ll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands. Each session includes a customized training plan and hands-on coaching to empower you as the handler.'"
+             class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+          <h3 class="text-xl font-semibold text-slate-900">Private Lessons</h3>
+          <p class="mt-2 text-slate-600">Personalized coaching for you and your dog in the comfort of your home.</p>
+          <span class="mt-4 inline-block text-indigo-600 font-semibold">Learn More &rarr;</span>
+        </div>
+        <!-- Service Card 3: Training Walks -->
+        <div @click="isModalOpen = true; modalTitle = 'Training Walks'; modalContent = 'Training Walks combine physical exercise with structured training. These aren\'t just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world. I handle the training so your dog gets mental and physical stimulation, making your own walks more enjoyable.'"
+             class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+          <h3 class="text-xl font-semibold text-slate-900">Training Walks</h3>
+          <p class="mt-2 text-slate-600">Combine exercise with focused training on leash manners and reactivity.</p>
+          <span class="mt-4 inline-block text-indigo-600 font-semibold">Learn More &rarr;</span>
+        </div>
+        <!-- Service Card 4: Refresher Weeks -->
+        <div @click="isModalOpen = true; modalTitle = 'Refresher Weeks'; modalContent = 'Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors. It\'s a perfect next step to ensure long-term success and keep your dog\'s training on track.'"
+             class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
+          <h3 class="text-xl font-semibold text-slate-900">Refresher Weeks</h3>
+          <p class="mt-2 text-slate-600">For past clients to sharpen skills and tune-up training.</p>
+          <span class="mt-4 inline-block text-indigo-600 font-semibold">Learn More &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 sm:py-32 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-5 gap-12 items-center">
+        <div class="md:col-span-2">
+          <img src="https://placehold.co/600x750/a78bfa/ffffff?text=Claire+H.&font=inter"
+               alt="Portrait of Claire Horvat"
+               class="rounded-xl shadow-2xl w-full h-auto object-cover">
+        </div>
+        <div class="md:col-span-3">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">About Claire Horvat</h2>
+          <p class="mt-6 text-slate-600">
+            <strong>Claire Horvat (she/her/hers)</strong> is a dedicated dog trainer and behavior consultant with a passion for creating clear communication and deep understanding between people and their pets. She believes that recognizing what your animal is trying to tell you is the key to nurturing a more confident pet and achieving a harmonious lifestyle for everyone.
+          </p>
+          <p class="mt-4 text-slate-600">
+            Claire's journey began in theatre but her love for animals led her to doggy daycares and eventually an apprenticeship under an experienced trainer. Immersing herself in science-based, positive reinforcement training, she developed a fascination with the unique bond between pets and their people.
+          </p>
+          <p class="mt-4 text-slate-600">
+            As a proud member of the IAABC, Fear Free Certified, and a Certified Professional Dog Trainer – Knowledge Assessed (CPDT-KA), Claire loves devising personalized plans that ensure every family member’s needs are met.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 sm:py-32">
+    <div class="container mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Ready to Start?</h2>
+        <p class="mt-4 text-lg text-slate-600">
+          Let's work together. Fill out the form below, and I'll get back to you to schedule a consultation.
+        </p>
+      </div>
+
+      <div id="contact-form-container" class="mt-12 max-w-xl mx-auto">
+        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="8141f9e2-5f99-4464-8d2b-fd0d3fb7add6">
+          <input type="hidden" name="subject" value="New Inquiry from Training Website">
+          <input type="hidden" name="from_name" value="Training Inquiry">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+          <!-- Name Field -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-700">Your Name</label>
+            <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-700">Your Email</label>
+            <input type="email" name="email" id="email" required class="mt-1 block w-full px-4 py-3 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+
+          <!-- Message Field -->
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-700">Message</label>
+            <textarea name="message" id="message" rows="4" required class="mt-1 block w-full px-4 py-3 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button id="submit-button" type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all">
+              Send Message
+            </button>
+          </div>
+        </form>
+        <p id="form-status" class="mt-4 text-center text-sm text-slate-500"></p>
+      </div>
+
+      <!-- This is the success message that will be shown, replacing the form -->
+      <div id="success-message" class="hidden max-w-xl mx-auto text-center bg-white p-12 rounded-xl shadow-lg">
+        <h3 class="text-2xl font-bold text-slate-900">Thank You!</h3>
+        <p class="mt-4 text-slate-600">Your message has been sent successfully. I appreciate you reaching out and will get back to you as soon as possible.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-slate-200">
+  <div class="container mx-auto px-6 py-8 text-center text-slate-500">
+    <p>&copy; <span id="year"></span> Claire Horvat. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- Service Details Modal -->
+<div x-show="isModalOpen"
+     x-cloak
+     class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center"
+     aria-labelledby="modal-title"
+     role="dialog"
+     aria-modal="true">
+
+  <!-- Modal Overlay -->
+  <div x-show="isModalOpen"
+       x-transition:enter="ease-out duration-300"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="ease-in duration-200"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"></div>
+
+  <!-- Modal Panel -->
+  <div x-show="isModalOpen"
+       @click.away="isModalOpen = false"
+       x-transition:enter="ease-out duration-300"
+       x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+       x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+       x-transition:leave="ease-in duration-200"
+       x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+       x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+       class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full mx-4">
+
+    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+      <div class="sm:flex sm:items-start">
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+          <h3 class="text-xl leading-6 font-bold text-slate-900" id="modal-title" x-text="modalTitle"></h3>
+          <div class="mt-4">
+            <p class="text-sm text-slate-600" x-text="modalContent"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <button @click="isModalOpen = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-slate-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Set current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Contact Form Logic
+  const form = document.getElementById('contact-form');
+  const formContainer = document.getElementById('contact-form-container');
+  const successMessage = document.getElementById('success-message');
+  const statusMessage = document.getElementById('form-status');
+  const submitButton = document.getElementById('submit-button');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    // Give visual feedback that form is submitting
+    statusMessage.innerHTML = "Sending...";
+    statusMessage.classList.remove('text-red-500');
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Sending...';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+            .then(async (response) => {
+              let jsonResponse = await response.json();
+              if (response.status == 200) {
+                // On success, hide the form and show the thank you message
+                formContainer.style.display = 'none';
+                successMessage.classList.remove('hidden');
+              } else {
+                console.log(response);
+                statusMessage.innerHTML = jsonResponse.message;
+                statusMessage.classList.add('text-red-500');
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Send Message';
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              statusMessage.innerHTML = "Something went wrong. Please try again.";
+              statusMessage.classList.add('text-red-500');
+              submitButton.disabled = false;
+              submitButton.innerHTML = 'Send Message';
+            });
+  });
+</script>
+
+</body>
+</html>
