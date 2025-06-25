@@ -425,9 +425,27 @@
     const modalBody = document.getElementById('service-modal-body');
     const modalCloseBtn = document.getElementById('service-modal-close-btn');
 
+    // DEBUG: Log the elements to ensure they are selected correctly
+    console.log('Modal elements selected:', {
+      modal,
+      modalOverlay,
+      modalContent,
+      modalCloseBtn,
+      serviceCards
+    });
+
+
     function openServiceModal(serviceId) {
+      // DEBUG: Log function call and the passed serviceId
+      console.log(`openServiceModal called with serviceId: "${serviceId}"`);
       const service = servicesData[serviceId];
-      if (!service) return;
+      if (!service) {
+        // DEBUG: Log if the service data is not found
+        console.error(`Service data not found for id: "${serviceId}"`);
+        return;
+      }
+      // DEBUG: Log the found service data
+      console.log('Found service data:', service);
 
       modalTitle.textContent = service.title;
       const featuresHTML = service.features.map(feature => `
@@ -437,28 +455,45 @@
                 </li>
             `).join('');
       modalBody.innerHTML = `<p>${service.description}</p><ul class="mt-4 space-y-2">${featuresHTML}</ul>`;
-      lucide.createIcons(); // Re-initialize icons inside the modal
+      lucide.createIcons();
 
+      // DEBUG: Log before changing modal classes
+      console.log('Modal classes before opening:', modal.className);
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      // DEBUG: Log after changing modal classes
+      console.log('Modal classes after removing "hidden":', modal.className);
 
       setTimeout(() => {
+        // DEBUG: Log inside setTimeout to confirm it runs
+        console.log('Executing setTimeout to make modal content visible.');
         modalOverlay.classList.add('modal-overlay-visible');
         modalContent.classList.add('modal-content-visible');
+        // DEBUG: Log the classes of the overlay and content pane
+        console.log('Overlay classes:', modalOverlay.className);
+        console.log('Content classes:', modalContent.className);
       }, 10);
     }
 
     function closeServiceModal() {
+      // DEBUG: Log when the close function is called
+      console.log('closeServiceModal called.');
       modalOverlay.classList.remove('modal-overlay-visible');
       modalContent.classList.remove('modal-content-visible');
       setTimeout(() => {
         modal.classList.add('hidden');
         document.body.style.overflow = '';
+        // DEBUG: Log that the modal is now hidden
+        console.log('Modal is hidden.');
       }, 300);
     }
 
     serviceCards.forEach(card => {
+      // DEBUG: Log for each card that an event listener is being added
+      console.log(`Adding click listener to card with data-service-id: "${card.dataset.serviceId}"`);
       card.addEventListener('click', () => {
+        // DEBUG: Log when a card is clicked
+        console.log(`Card clicked: "${card.dataset.serviceId}"`);
         openServiceModal(card.dataset.serviceId);
       });
     });
@@ -468,6 +503,8 @@
       modalCloseBtn.addEventListener('click', closeServiceModal);
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          // DEBUG: Log escape key press
+          console.log('Escape key pressed, closing modal.');
           closeServiceModal();
         }
       });
