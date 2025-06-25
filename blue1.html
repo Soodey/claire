@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claire Horvat - Dog Training & Behavior Modification</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'rich_black': { DEFAULT: '#0d1b2a', 100: '#030609', 200: '#050b11', 300: '#08111a', 400: '#0b1622', 500: '#0d1b2a', 600: '#234870', 700: '#3875b6', 800: '#74a3d4', 900: '#bad1ea' },
+            'oxford_blue': { DEFAULT: '#1b263b', 100: '#05080c', 200: '#0b0f18', 300: '#101724', 400: '#161f30', 500: '#1b263b', 600: '#364c75', 700: '#5172af', 800: '#8ba1ca', 900: '#c5d0e4' },
+            'yinmn_blue': { DEFAULT: '#415a77', 100: '#0d1218', 200: '#1a242f', 300: '#273647', 400: '#34485f', 500: '#415a77', 600: '#587aa1', 700: '#819bb9', 800: '#abbcd1', 900: '#d5dee8' },
+            'silver_lake_blue': { DEFAULT: '#778da9', 100: '#161c23', 200: '#2c3746', 300: '#425369', 400: '#586f8d', 500: '#778da9', 600: '#91a2ba', 700: '#acbacb', 800: '#c8d1dc', 900: '#e3e8ee' },
+            'platinum': { DEFAULT: '#e0e1dd', 100: '#2e2f2a', 200: '#5b5e53', 300: '#898c7e', 400: '#b4b6ad', 500: '#e0e1dd', 600: '#e5e6e3', 700: '#ececea', 800: '#f2f3f1', 900: '#f9f9f8' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Use Inter as the default font */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Simple transitions for the modal */
+    #service-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #service-modal.is-open #service-modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="bg-platinum text-rich_black">
+<div class="flex min-h-screen flex-col">
+  <header class="sticky top-0 z-40 w-full border-b border-silver_lake_blue-300 bg-platinum/80 backdrop-blur">
+    <div class="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <a href="#" class="flex items-center gap-2">
+        <img src="assets/images/logo.svg" alt="Claire Horvat Logo" class="h-8 w-8" />
+        <span class="text-xl font-bold text-rich_black">Claire Horvat</span>
+      </a>
+      <nav class="hidden md:flex gap-6 text-sm font-medium">
+        <a href="#services" class="text-yinmn_blue hover:text-rich_black transition-colors">Services</a>
+        <a href="#about" class="text-yinmn_blue hover:text-rich_black transition-colors">About</a>
+        <a href="#testimonials" class="text-yinmn_blue hover:text-rich_black transition-colors">Testimonials</a>
+        <a href="#contact" class="text-yinmn_blue hover:text-rich_black transition-colors">Contact</a>
+      </nav>
+      <button id="mobile-menu-trigger" class="md:hidden p-2">
+        <i data-lucide="menu" class="h-6 w-6"></i>
+        <span class="sr-only">Toggle menu</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-menu-sheet" class="fixed inset-0 z-50 pointer-events-none">
+    <div id="mobile-menu-overlay" class="absolute inset-0 bg-rich_black/60 opacity-0 transition-opacity duration-300"></div>
+    <div id="mobile-menu-content" class="absolute top-0 right-0 bottom-0 z-50 h-full w-[300px] bg-platinum transform translate-x-full transition-transform duration-300 ease-in-out">
+      <div class="flex justify-end p-4">
+        <button id="mobile-menu-close" class="p-2">
+          <i data-lucide="x" class="h-6 w-6"></i>
+          <span class="sr-only">Close menu</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-4 p-6">
+        <a href="#services" class="mobile-nav-link text-lg font-medium text-yinmn_blue hover:text-rich_black">Services</a>
+        <a href="#about" class="mobile-nav-link text-lg font-medium text-yinmn_blue hover:text-rich_black">About</a>
+        <a href="#testimonials" class="mobile-nav-link text-lg font-medium text-yinmn_blue hover:text-rich_black">Testimonials</a>
+        <a href="#contact" class="mobile-nav-link text-lg font-medium text-yinmn_blue hover:text-rich_black">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+
+  <main class="flex-1">
+    <section class="w-full py-12 md:py-18 lg:py-24">
+      <div class="container px-4 md:px-6 mx-auto">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
+          <div class="flex flex-col justify-center space-y-4">
+            <div class="space-y-2">
+              <h1 class="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-rich_black">Professional Dog Training & Behavior Modification</h1>
+              <p class="max-w-[600px] text-yinmn_blue md:text-xl">Transform your dog's behavior with Claire Horvat's expert training methods. Specializing in positive reinforcement techniques for dogs of all ages and breeds.</p>
+            </div>
+            <div class="flex flex-col gap-2 min-[400px]:flex-row">
+              <a href="#contact" class="inline-flex h-12 items-center justify-center rounded-md bg-yinmn_blue px-8 text-sm font-medium text-platinum shadow transition-colors hover:bg-yinmn_blue-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yinmn_blue-700">
+                Book a Consultation
+                <i data-lucide="chevron-right" class="ml-2 h-4 w-4"></i>
+              </a>
+              <a href="#services" class="inline-flex h-12 items-center justify-center rounded-md border border-silver_lake_blue bg-platinum px-8 text-sm font-medium text-yinmn_blue shadow-sm transition-colors hover:bg-silver_lake_blue-200">View Services</a>
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <img src="https://placehold.co/550x550/415a77/e0e1dd?text=Happy+Dog&font=inter" alt="Happy dog with trainer" width="550" height="550" class="rounded-lg object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="w-full py-12 md:py-18 lg:py-24 bg-oxford_blue">
+      <div class="container px-4 md:px-6 mx-auto">
+        <div class="flex flex-col items-center justify-center space-y-4 text-center">
+          <div class="space-y-2">
+            <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-platinum">Our Training Services</h2>
+            <p class="max-w-[700px] text-silver_lake_blue md:text-xl">Comprehensive training programs tailored to your dog's specific needs. Click a service for more details.</p>
+          </div>
+        </div>
+        <div class="mx-auto grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
+          <div data-service-id="day-training" class="service-card rounded-lg border border-yinmn_blue bg-rich_black text-platinum shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6">
+              <div class="mb-4"><i data-lucide="sun" class="h-10 w-10 text-silver_lake_blue"></i></div>
+              <h3 class="text-xl font-semibold">Day Training</h3>
+              <p class="text-sm text-silver_lake_blue-700 mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0">
+              <span class="text-sm font-semibold text-platinum">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
+          </div>
+          <div data-service-id="private-lessons" class="service-card rounded-lg border border-yinmn_blue bg-rich_black text-platinum shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6">
+              <div class="mb-4"><i data-lucide="user-check" class="h-10 w-10 text-silver_lake_blue"></i></div>
+              <h3 class="text-xl font-semibold">Private Lessons</h3>
+              <p class="text-sm text-silver_lake_blue-700 mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0">
+              <span class="text-sm font-semibold text-platinum">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
+          </div>
+          <div data-service-id="training-walks" class="service-card rounded-lg border border-yinmn_blue bg-rich_black text-platinum shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6">
+              <div class="mb-4"><i data-lucide="footprints" class="h-10 w-10 text-silver_lake_blue"></i></div>
+              <h3 class="text-xl font-semibold">Training Walks</h3>
+              <p class="text-sm text-silver_lake_blue-700 mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0">
+              <span class="text-sm font-semibold text-platinum">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
+          </div>
+          <div data-service-id="refresher-weeks" class="service-card rounded-lg border border-yinmn_blue bg-rich_black text-platinum shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6">
+              <div class="mb-4"><i data-lucide="sparkles" class="h-10 w-10 text-silver_lake_blue"></i></div>
+              <h3 class="text-xl font-semibold">Refresher Weeks</h3>
+              <p class="text-sm text-silver_lake_blue-700 mt-1">For past clients to sharpen skills and tune-up previous training.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0">
+              <span class="text-sm font-semibold text-platinum">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="w-full py-12 md:py-18 lg:py-24">
+      <div class="container mx-auto px-4 md:px-6">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
+          <div class="flex items-center justify-center">
+            <img src="https://placehold.co/600x600/e0e1dd/0d1b2a?text=Claire+H.&font=inter" alt="Claire Horvat" class="rounded-lg object-cover">
+          </div>
+          <div class="flex flex-col justify-center space-y-4">
+            <div class="space-y-2">
+              <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-rich_black">Meet Claire Horvat</h2>
+              <p class="text-yinmn_blue md:text-xl">Certified Professional Dog Trainer with over 10 years of experience</p>
+            </div>
+            <div class="space-y-4 text-yinmn_blue">
+              <p>Claire Horvat is a certified dog trainer specializing in positive reinforcement techniques and behavior modification. With over a decade of experience working with dogs of all breeds, ages, and behavioral challenges, Claire has developed a reputation for her compassionate and effective training methods.</p>
+              <p>Claire believes that understanding the unique personality and needs of each dog is essential for successful training. Her approach focuses on building a strong bond between dogs and their owners through clear communication, consistency, and positive reinforcement.</p>
+            </div>
+            <div class="flex">
+              <a href="#contact" class="inline-flex h-10 items-center justify-center rounded-md bg-yinmn_blue px-8 text-sm font-medium text-platinum shadow transition-colors hover:bg-yinmn_blue-600">Contact Claire</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="w-full py-12 md:py-18 lg:py-24 bg-oxford_blue">
+      <div class="container px-4 md:px-6 mx-auto">
+        <div class="flex flex-col items-center justify-center space-y-4 text-center">
+          <div class="space-y-2">
+            <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-platinum">What Our Clients Say</h2>
+            <p class="max-w-[700px] text-silver_lake_blue md:text-xl">Success stories from dog owners who have worked with Claire.</p>
+          </div>
+        </div>
+        <div class="relative pt-12">
+          <div class="overflow-hidden">
+            <div id="testimonials-track" class="flex gap-6 transition-transform duration-300 ease-in-out">
+            </div>
+          </div>
+          <div class="flex justify-center mt-6 gap-2">
+            <button id="testimonial-prev" class="inline-flex items-center justify-center rounded-full border border-silver_lake_blue bg-platinum h-10 w-10 text-sm font-medium text-yinmn_blue shadow-sm transition-colors hover:bg-silver_lake_blue-200 disabled:opacity-50">
+              <i data-lucide="chevron-left" class="h-4 w-4"></i><span class="sr-only">Previous</span>
+            </button>
+            <button id="testimonial-next" class="inline-flex items-center justify-center rounded-full border border-silver_lake_blue bg-platinum h-10 w-10 text-sm font-medium text-yinmn_blue shadow-sm transition-colors hover:bg-silver_lake_blue-200 disabled:opacity-50">
+              <i data-lucide="chevron-right" class="h-4 w-4"></i><span class="sr-only">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="w-full py-12 md:py-18 lg:py-24">
+      <div class="container px-4 md:px-6 mx-auto">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12">
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-rich_black">Get in Touch</h2>
+              <p class="max-w-[600px] text-yinmn_blue md:text-xl">Ready to transform your dog's behavior? Contact Claire today to schedule a consultation.</p>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center gap-3"><i data-lucide="phone" class="h-5 w-5 text-yinmn_blue"></i><span>(555) 123-4567</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="mail" class="h-5 w-5 text-yinmn_blue"></i><span>claire.horvat.training@email.com</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="map-pin" class="h-5 w-5 text-yinmn_blue"></i><span>Chicago, IL</span></div>
+            </div>
+          </div>
+          <div id="contact-form-wrapper">
+            <div id="contact-form-container" class="rounded-lg border border-silver_lake_blue bg-platinum shadow-sm">
+              <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="p-6">
+                <h3 class="text-xl font-semibold mb-1">Request a Consultation</h3>
+                <p class="text-sm text-yinmn_blue mb-6">Fill out the form and Claire will get back to you.</p>
+                <input type="hidden" name="access_key" value="8141f9e2-5f99-4464-8d2b-fd0d3fb7add6">
+                <input type="hidden" name="subject" value="New Inquiry from Training Website">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <div class="space-y-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5"><label for="first-name" class="text-sm font-medium text-rich_black">First name</label><input type="text" name="first_name" id="first-name" required placeholder="John" class="flex h-10 w-full rounded-md border border-silver_lake_blue-400 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-yinmn_blue focus:border-yinmn_blue focus:outline-none"></div>
+                    <div class="space-y-1.5"><label for="last-name" class="text-sm font-medium text-rich_black">Last name</label><input type="text" name="last_name" id="last-name" required placeholder="Doe" class="flex h-10 w-full rounded-md border border-silver_lake_blue-400 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-yinmn_blue focus:border-yinmn_blue focus:outline-none"></div>
+                  </div>
+                  <div class="space-y-1.5"><label for="email" class="text-sm font-medium text-rich_black">Email</label><input type="email" name="email" id="email" required placeholder="john@example.com" class="flex h-10 w-full rounded-md border border-silver_lake_blue-400 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-yinmn_blue focus:border-yinmn_blue focus:outline-none"></div>
+                  <div class="space-y-1.5"><label for="dog-info" class="text-sm font-medium text-rich_black">Tell us about your dog</label><textarea name="dog_info" id="dog-info" placeholder="Breed, age, and specific behavior concerns" rows="4" class="flex min-h-[80px] w-full rounded-md border border-silver_lake_blue-400 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-yinmn_blue focus:border-yinmn_blue focus:outline-none"></textarea></div>
+                  <button id="submit-button" type="submit" class="w-full inline-flex items-center justify-center rounded-md text-sm font-medium bg-yinmn_blue text-platinum h-10 px-4 py-2 hover:bg-yinmn_blue-600">Submit Request</button>
+                </div>
+              </form>
+            </div>
+            <p id="form-status" class="mt-4 text-center text-sm text-yinmn_blue"></p>
+            <div id="success-message" class="hidden rounded-lg border bg-platinum shadow-sm p-6 text-center">
+              <h3 class="text-2xl font-bold mb-4">Thank You!</h3>
+              <p class="text-yinmn_blue">Your request has been sent successfully. Claire will get back to you shortly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="w-full border-t border-yinmn_blue-500 py-6 md:py-0 bg-oxford_blue">
+    <div class="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:h-24 md:flex-row">
+      <p class="text-sm text-silver_lake_blue">&copy; <span id="year"></span> Claire Horvat Dog Training. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="#" class="text-sm text-silver_lake_blue hover:text-platinum">Privacy Policy</a>
+        <a href="#" class="text-sm text-silver_lake_blue hover:text-platinum">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="service-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-rich_black/60 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div id="service-modal-content" class="bg-platinum rounded-lg shadow-xl w-full max-w-lg transform scale-95 opacity-0 transition-all duration-300 ease-out">
+    <div class="p-6">
+      <div class="flex items-start justify-between">
+        <h3 id="service-modal-title" class="text-xl font-semibold text-rich_black"></h3>
+        <button id="service-modal-close-btn" class="p-1 -mt-1 -mr-1 rounded-full hover:bg-silver_lake_blue-200">
+          <i data-lucide="x" class="h-5 w-5 text-yinmn_blue"></i>
+        </button>
+      </div>
+      <div id="service-modal-body" class="mt-4 text-sm text-yinmn_blue space-y-4">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // === Initialize Page Elements ===
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // === Mobile Navigation ===
+    const mobileMenu = {
+      sheet: document.getElementById('mobile-menu-sheet'),
+      overlay: document.getElementById('mobile-menu-overlay'),
+      content: document.getElementById('mobile-menu-content'),
+      trigger: document.getElementById('mobile-menu-trigger'),
+      closeBtn: document.getElementById('mobile-menu-close'),
+      links: document.querySelectorAll('.mobile-nav-link'),
+
+      open() {
+        this.sheet.style.pointerEvents = 'auto';
+        this.overlay.style.opacity = '1';
+        this.content.style.transform = 'translateX(0)';
+        document.body.style.overflow = 'hidden';
+      },
+      close() {
+        this.sheet.style.pointerEvents = 'none';
+        this.overlay.style.opacity = '0';
+        this.content.style.transform = 'translate-x-full';
+        document.body.style.overflow = '';
+      }
+    };
+
+    mobileMenu.trigger.addEventListener('click', () => mobileMenu.open());
+    mobileMenu.closeBtn.addEventListener('click', () => mobileMenu.close());
+    mobileMenu.overlay.addEventListener('click', () => mobileMenu.close());
+    mobileMenu.links.forEach(link => link.addEventListener('click', () => mobileMenu.close()));
+
+    // === Services Modal ===
+    const servicesData = {
+      'day-training': { title: 'Day Training', description: "Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. This is perfect for busy owners who want to accelerate their dog's learning.", features: ['Accelerated learning in a focused environment', 'Daily one-on-one professional training', 'Socialization with other dogs and people', 'End-of-day transfer sessions to empower you'] },
+      'private-lessons': { title: 'Private Lessons', description: "Private lessons are tailored to your specific needs and goals. I'll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands.", features: ['Personalized training plan for your dog', 'Hands-on coaching in your own home', 'Flexible scheduling to fit your life', 'Focus on specific issues like reactivity or basic manners'] },
+      'training-walks': { title: 'Training Walks', description: "Training Walks combine physical exercise with structured training. These aren't just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world.", features: ['Improves leash manners and reduces pulling', 'Builds confidence in reactive or anxious dogs', 'Provides mental and physical stimulation', 'Makes your own walks more enjoyable'] },
+      'refresher-weeks': { title: 'Refresher Weeks', description: "Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors.", features: ['Exclusive to previous Day Training clients', 'Sharpens existing skills and commands', 'Addresses any new behaviors that may have emerged', 'Ensures long-term training success'] }
+    };
+
+    const servicesSection = document.getElementById('services');
+    const serviceModal = {
+      el: document.getElementById('service-modal'),
+      title: document.getElementById('service-modal-title'),
+      body: document.getElementById('service-modal-body'),
+      closeBtn: document.getElementById('service-modal-close-btn'),
+
+      open(serviceId) {
+        const service = servicesData[serviceId];
+        if (!service) return;
+
+        this.title.textContent = service.title;
+        const featuresHTML = service.features.map(feature =>
+                `<li class="flex items-start gap-3"><i data-lucide="check-circle" class="h-4 w-4 text-rich_black mt-1 flex-shrink-0"></i><span>${feature}</span></li>`
+        ).join('');
+        this.body.innerHTML = `<p>${service.description}</p><ul class="mt-4 space-y-2">${featuresHTML}</ul>`;
+        lucide.createIcons();
+
+        this.el.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      },
+      close() {
+        this.el.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    };
+
+    // Event delegation for service cards
+    servicesSection.addEventListener('click', (e) => {
+      const card = e.target.closest('.service-card');
+      if (card && card.dataset.serviceId) {
+        serviceModal.open(card.dataset.serviceId);
+      }
+    });
+
+    serviceModal.closeBtn.addEventListener('click', () => serviceModal.close());
+    serviceModal.el.addEventListener('click', (e) => {
+      if(e.target === serviceModal.el) {
+        serviceModal.close();
+      }
+    });
+
+    // Close modals on Escape key press
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        serviceModal.close();
+        mobileMenu.close();
+      }
+    });
+
+
+    // === Testimonials Slider ===
+    const testimonials = [
+      { name: "Sarah Johnson", dogInfo: "Max &bull; German Shepherd", image: "https://placehold.co/80x80/e0e1dd/415a77?text=SJ", text: "Claire completely transformed our German Shepherd's behavior. Max used to be reactive around other dogs, but after six weeks of training, he's calm and confident. Claire's methods are effective and humane. I can't recommend her enough!" },
+      { name: "Michael Rodriguez", dogInfo: "Bella &bull; Labrador Retriever", image: "https://placehold.co/80x80/e0e1dd/415a77?text=MR", text: "We adopted Bella as a puppy and had no idea what we were doing. Claire's puppy training program gave us the tools and confidence to raise a well-behaved dog. Bella is now 1 year old and such a joy to have in our family." },
+      { name: "Jennifer Lee", dogInfo: "Cooper &bull; Border Collie Mix", image: "https://placehold.co/80x80/e0e1dd/415a77?text=JL", text: "Cooper had severe separation anxiety when we first got him from the shelter. Claire worked with us patiently to address the root causes. Her behavior modification techniques made a huge difference." },
+      { name: "David Wilson", dogInfo: "Luna &bull; Goldendoodle", image: "https://placehold.co/80x80/e0e1dd/415a77?text=DW", text: "Claire's group classes were perfect for our energetic Goldendoodle. Luna learned how to behave around other dogs and people, and we learned how to be consistent with our training." },
+      { name: "Emily Thompson", dogInfo: "Rocky &bull; Pit Bull", image: "https://placehold.co/80x80/e0e1dd/415a77?text=ET", text: "We were at our wit's end with Rocky's leash reactivity. Other trainers suggested harsh methods, but Claire showed us how positive reinforcement could work even for difficult cases." }
+    ];
+
+    const slider = {
+      track: document.getElementById('testimonials-track'),
+      nextBtn: document.getElementById('testimonial-next'),
+      prevBtn: document.getElementById('testimonial-prev'),
+      currentIndex: 0,
+      visibleCount: 3,
+
+      init() {
+        if(!this.track) return;
+        window.addEventListener('resize', () => this.update());
+        this.nextBtn.addEventListener('click', () => this.next());
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.update();
+      },
+      update() {
+        if (window.innerWidth < 768) this.visibleCount = 1;
+        else if (window.innerWidth < 1024) this.visibleCount = 2;
+        else this.visibleCount = 3;
+        this.render();
+      },
+      render() {
+        this.track.innerHTML = testimonials.map(t => `
+                <div class="rounded-lg border border-yinmn_blue bg-rich_black shadow-sm flex-shrink-0" style="width: calc((100% - ${(this.visibleCount - 1) * 1.5}rem) / ${this.visibleCount})">
+                    <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
+                        <div><h3 class="font-medium text-platinum">${t.name}</h3><p class="text-sm text-silver_lake_blue">${t.dogInfo}</p></div>
+                    </div>
+                    <p class="text-silver_lake_blue-700">${t.text}</p>
+                    </div>
+                </div>
+            `).join('');
+        this.updateButtons();
+        this.slide();
+      },
+      slide() {
+        const cardWidth = this.track.children[0] ? this.track.children[0].offsetWidth : 0;
+        const gap = 24; // Corresponds to gap-6
+        this.track.style.transform = `translateX(-${this.currentIndex * (cardWidth + gap)}px)`;
+      },
+      next() {
+        if (this.currentIndex < testimonials.length - this.visibleCount) {
+          this.currentIndex++;
+          this.slide();
+          this.updateButtons();
+        }
+      },
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.slide();
+          this.updateButtons();
+        }
+      },
+      updateButtons() {
+        this.prevBtn.disabled = this.currentIndex === 0;
+        this.nextBtn.disabled = this.currentIndex >= testimonials.length - this.visibleCount;
+      }
+    };
+    slider.init();
+
+    // === Contact Form ===
+    const contactForm = {
+      form: document.getElementById('contact-form'),
+      wrapper: document.getElementById('contact-form-wrapper'),
+      container: document.getElementById('contact-form-container'),
+      successMsg: document.getElementById('success-message'),
+      statusMsg: document.getElementById('form-status'),
+      submitBtn: document.getElementById('submit-button'),
+
+      init() {
+        if(!this.form) return;
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      },
+      handleSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData(this.form);
+        formData.set('name', `${formData.get('first_name')} ${formData.get('last_name')}`);
+        const json = JSON.stringify(Object.fromEntries(formData));
+
+        this.statusMsg.textContent = "Submitting...";
+        this.submitBtn.disabled = true;
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: json
+        })
+                .then(res => res.json())
+                .then(data => {
+                  if (data.success) {
+                    this.container.style.display = 'none';
+                    this.statusMsg.style.display = 'none';
+                    this.successMsg.classList.remove('hidden');
+                  } else {
+                    this.statusMsg.textContent = data.message || "An error occurred.";
+                    this.submitBtn.disabled = false;
+                  }
+                })
+                .catch(error => {
+                  this.statusMsg.textContent = "Something went wrong. Please try again.";
+                  this.submitBtn.disabled = false;
+                });
+      }
+    };
+    contactForm.init();
+  });
+</script>
+</body>
+</html>
