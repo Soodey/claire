@@ -64,13 +64,16 @@
     .rounded-lg { border-radius: var(--radius); }
     .rounded-md { border-radius: calc(var(--radius) - 2px); }
     .rounded-sm { border-radius: calc(var(--radius) - 4px); }
+
+    .modal-overlay-visible { opacity: 1; }
+    .modal-content-visible { transform: translate(0, 0) scale(1); opacity: 1; }
   </style>
 </head>
 
 <body>
 <div class="flex min-h-screen flex-col">
   <!-- Header -->
-  <header id="main-header" class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <header id="main-header" class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-16 items-center justify-between mx-auto px-4 md:px-6">
       <a href="#" class="flex items-center gap-2">
         <i data-lucide="dog" class="h-6 w-6"></i>
@@ -92,9 +95,7 @@
 
     <!-- Mobile Menu Sheet -->
     <div id="mobile-menu-sheet" class="fixed inset-0 z-50 hidden">
-      <!-- Overlay -->
       <div id="mobile-menu-overlay" class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-500"></div>
-      <!-- Content -->
       <div id="mobile-menu-content" class="fixed top-0 right-0 bottom-0 z-50 h-full w-[300px] sm:w-[400px] bg-background transform translate-x-full transition-transform duration-500 ease-in-out">
         <nav class="flex flex-col gap-4 mt-8 p-6">
           <a href="#services" class="mobile-nav-link text-lg font-medium hover:text-primary">Services</a>
@@ -137,55 +138,30 @@
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
           <div class="space-y-2">
             <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Training Services</h2>
-            <p class="max-w-[700px] text-muted-foreground md:text-xl">Comprehensive training programs tailored to your dog's specific needs</p>
+            <p class="max-w-[700px] text-muted-foreground md:text-xl">Comprehensive training programs tailored to your dog's specific needs. Click a service for more details.</p>
           </div>
         </div>
-        <div class="mx-auto grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+        <div class="mx-auto grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
           <!-- Service Cards -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm h-full">
-            <div class="p-6">
-              <div class="mb-4"><i data-lucide="bone" class="h-10 w-10 text-primary"></i></div>
-              <h3 class="text-xl font-semibold">Puppy Training</h3>
-              <p class="text-sm text-muted-foreground mt-1">Start your puppy off right with early socialization, basic commands, and house training.</p>
-            </div>
-            <div class="p-6 pt-0">
-              <ul class="space-y-2">
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Socialization</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Basic commands</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">House training</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Leash manners</span></li>
-              </ul>
-            </div>
+          <div data-service-id="day-training" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="mb-4 inline-block"><i data-lucide="sun" class="h-10 w-10 text-primary"></i></div>
+            <h3 class="text-xl font-semibold">Day Training</h3>
+            <p class="text-sm text-muted-foreground mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
           </div>
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm h-full">
-            <div class="p-6">
-              <div class="mb-4"><i data-lucide="shield-check" class="h-10 w-10 text-primary"></i></div>
-              <h3 class="text-xl font-semibold">Behavior Modification</h3>
-              <p class="text-sm text-muted-foreground mt-1">Address problematic behaviors like aggression, anxiety, excessive barking, and more.</p>
-            </div>
-            <div class="p-6 pt-0">
-              <ul class="space-y-2">
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Aggression issues</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Separation anxiety</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Excessive barking</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Destructive behaviors</span></li>
-              </ul>
-            </div>
+          <div data-service-id="private-lessons" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="mb-4 inline-block"><i data-lucide="user-check" class="h-10 w-10 text-primary"></i></div>
+            <h3 class="text-xl font-semibold">Private Lessons</h3>
+            <p class="text-sm text-muted-foreground mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
           </div>
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm h-full">
-            <div class="p-6">
-              <div class="mb-4"><i data-lucide="award" class="h-10 w-10 text-primary"></i></div>
-              <h3 class="text-xl font-semibold">Advanced Obedience</h3>
-              <p class="text-sm text-muted-foreground mt-1">Take your dog's training to the next level with advanced commands and off-leash reliability.</p>
-            </div>
-            <div class="p-6 pt-0">
-              <ul class="space-y-2">
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Off-leash control</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Advanced commands</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Distraction training</span></li>
-                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-primary"></i><span class="text-sm">Public manners</span></li>
-              </ul>
-            </div>
+          <div data-service-id="training-walks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="mb-4 inline-block"><i data-lucide="footprints" class="h-10 w-10 text-primary"></i></div>
+            <h3 class="text-xl font-semibold">Training Walks</h3>
+            <p class="text-sm text-muted-foreground mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
+          </div>
+          <div data-service-id="refresher-weeks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="mb-4 inline-block"><i data-lucide="sparkles" class="h-10 w-10 text-primary"></i></div>
+            <h3 class="text-xl font-semibold">Refresher Weeks</h3>
+            <p class="text-sm text-muted-foreground mt-1">For past clients to sharpen skills and tune-up previous training.</p>
           </div>
         </div>
       </div>
@@ -309,12 +285,39 @@
   </footer>
 </div>
 
-<script>
-  // Initialize Lucide Icons
-  lucide.createIcons();
+<!-- Service Details Modal -->
+<div id="service-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+  <!-- Overlay -->
+  <div id="service-modal-overlay" class="fixed inset-0 bg-black/60 opacity-0 transition-opacity duration-300 ease-out"></div>
+  <!-- Content -->
+  <div id="service-modal-content" class="relative bg-card rounded-lg shadow-xl w-full max-w-lg transform scale-95 opacity-0 transition-all duration-300 ease-out">
+    <div class="p-6">
+      <div class="flex items-start justify-between">
+        <h3 id="service-modal-title" class="text-xl font-semibold text-card-foreground"></h3>
+        <button id="service-modal-close-btn" class="p-1 -mt-1 -mr-1 rounded-full hover:bg-muted">
+          <i data-lucide="x" class="h-5 w-5 text-muted-foreground"></i>
+        </button>
+      </div>
+      <div id="service-modal-body" class="mt-4 text-sm text-muted-foreground space-y-4">
+        <!-- Service details will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
 
-  // Mobile Navigation Logic
+
+<script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Set current year in footer
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Mobile Navigation Logic
     const trigger = document.getElementById('mobile-menu-trigger');
     const sheet = document.getElementById('mobile-menu-sheet');
     const overlay = document.getElementById('mobile-menu-overlay');
@@ -324,7 +327,6 @@
     function openMenu() {
       sheet.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      // Use timeout to allow the display property to apply before starting transition
       setTimeout(() => {
         overlay.classList.add('opacity-100');
         content.classList.remove('translate-x-full');
@@ -334,27 +336,93 @@
     function closeMenu() {
       overlay.classList.remove('opacity-100');
       content.classList.add('translate-x-full');
-      // Wait for transition to end before hiding
       setTimeout(() => {
         sheet.classList.add('hidden');
         document.body.style.overflow = '';
       }, 500);
     }
 
-    trigger.addEventListener('click', openMenu);
-    overlay.addEventListener('click', closeMenu);
-    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+    if (trigger) {
+      trigger.addEventListener('click', openMenu);
+      overlay.addEventListener('click', closeMenu);
+      navLinks.forEach(link => link.addEventListener('click', closeMenu));
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !sheet.classList.contains('hidden')) {
+          closeMenu();
+        }
+      });
+    }
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !sheet.classList.contains('hidden')) {
-        closeMenu();
+    // Service Modal Logic
+    const servicesData = {
+      'day-training': {
+        title: 'Day Training',
+        description: 'Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. We\'ll cover obedience, socialization, and specific behavior goals. At the end of each day, we\'ll have a transfer session to show you how to maintain the progress. This is perfect for busy owners who want to accelerate their dog\'s learning.'
+      },
+      'private-lessons': {
+        title: 'Private Lessons',
+        description: 'Private lessons are tailored to your specific needs and goals. I\'ll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands. Each session includes a customized training plan and hands-on coaching to empower you as the handler.'
+      },
+      'training-walks': {
+        title: 'Training Walks',
+        description: 'Training Walks combine physical exercise with structured training. These aren\'t just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world. I handle the training so your dog gets mental and physical stimulation, making your own walks more enjoyable.'
+      },
+      'refresher-weeks': {
+        title: 'Refresher Weeks',
+        description: 'Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors. It\'s a perfect next step to ensure long-term success and keep your dog\'s training on track.'
       }
+    };
+
+    const serviceCards = document.querySelectorAll('.service-card');
+    const modal = document.getElementById('service-modal');
+    const modalOverlay = document.getElementById('service-modal-overlay');
+    const modalContent = document.getElementById('service-modal-content');
+    const modalTitle = document.getElementById('service-modal-title');
+    const modalBody = document.getElementById('service-modal-body');
+    const modalCloseBtn = document.getElementById('service-modal-close-btn');
+
+    function openServiceModal(serviceId) {
+      const service = servicesData[serviceId];
+      if (!service) return;
+
+      modalTitle.textContent = service.title;
+      modalBody.innerHTML = `<p>${service.description}</p>`;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => {
+        modalOverlay.classList.add('modal-overlay-visible');
+        modalContent.classList.add('modal-content-visible');
+      }, 10);
+    }
+
+    function closeServiceModal() {
+      modalOverlay.classList.remove('modal-overlay-visible');
+      modalContent.classList.remove('modal-content-visible');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    serviceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        openServiceModal(card.dataset.serviceId);
+      });
     });
-  });
+
+    if (modal) {
+      modalOverlay.addEventListener('click', closeServiceModal);
+      modalCloseBtn.addEventListener('click', closeServiceModal);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeServiceModal();
+        }
+      });
+    }
 
 
-  // Testimonials Slider Logic
-  document.addEventListener('DOMContentLoaded', () => {
+    // Testimonials Slider Logic
     const testimonials = [
       { id: 1, name: "Sarah Johnson", dogName: "Max", dogBreed: "German Shepherd", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=SJ", text: "Claire completely transformed our German Shepherd's behavior. Max used to be reactive around other dogs, but after six weeks of training, he's calm and confident. Claire's methods are effective and humane. I can't recommend her enough!" },
       { id: 2, name: "Michael Rodriguez", dogName: "Bella", dogBreed: "Labrador Retriever", image: "https://placehold.co/80x80/e5e7eb/4f46e5?text=MR", text: "We adopted Bella as a puppy and had no idea what we were doing. Claire's puppy training program gave us the tools and confidence to raise a well-behaved dog. Bella is now 1 year old and such a joy to have in our family." },
@@ -367,114 +435,107 @@
     const nextButton = document.getElementById('testimonial-next');
     const prevButton = document.getElementById('testimonial-prev');
 
-    let currentIndex = 0;
-    let visibleCount = 3;
+    if (track) {
+      let currentIndex = 0;
+      let visibleCount = 3;
 
-    function updateVisibleCount() {
-      if (window.innerWidth < 768) visibleCount = 1;
-      else if (window.innerWidth < 1024) visibleCount = 2;
-      else visibleCount = 3;
-      renderSlider();
-    }
+      function updateVisibleCount() {
+        if (window.innerWidth < 768) visibleCount = 1;
+        else if (window.innerWidth < 1024) visibleCount = 2;
+        else visibleCount = 3;
+        renderSlider();
+      }
 
-    function renderSlider() {
-      // 1. Generate HTML for testimonials
-      track.innerHTML = testimonials.map(t => `
-                <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex-shrink-0" style="width: calc((100% - ${(visibleCount - 1) * 1.5}rem) / ${visibleCount})">
-                  <div class="p-6">
-                    <div class="flex items-center gap-4 mb-4">
-                      <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
-                      <div>
-                        <h3 class="font-medium">${t.name}</h3>
-                        <p class="text-sm text-muted-foreground">${t.dogName} &bull; ${t.dogBreed}</p>
+      function renderSlider() {
+        track.innerHTML = testimonials.map(t => `
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex-shrink-0" style="width: calc((100% - ${(visibleCount - 1) * 1.5}rem) / ${visibleCount})">
+                      <div class="p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                          <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
+                          <div><h3 class="font-medium">${t.name}</h3><p class="text-sm text-muted-foreground">${t.dogName} &bull; ${t.dogBreed}</p></div>
+                        </div>
+                        <div class="flex mb-4">${Array(5).fill(0).map(() => `<i data-lucide="star" class="h-4 w-4 fill-primary text-primary"></i>`).join('')}</div>
+                        <p class="text-muted-foreground">${t.text}</p>
                       </div>
                     </div>
-                    <div class="flex mb-4">
-                      ${Array(5).fill(0).map(() => `<i data-lucide="star" class="h-4 w-4 fill-primary text-primary"></i>`).join('')}
-                    </div>
-                    <p class="text-muted-foreground">${t.text}</p>
-                  </div>
-                </div>
-            `).join('');
+                `).join('');
+        lucide.createIcons();
 
-      // 2. Re-initialize icons
-      lucide.createIcons();
+        const cardWidth = track.children[0] ? track.children[0].offsetWidth : 0;
+        const gap = 24;
+        track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
 
-      // 3. Update slider position and button states
-      const cardWidth = track.children[0].offsetWidth;
-      const gap = 24; // 1.5rem
-      track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex >= testimonials.length - visibleCount;
+      }
 
-      prevButton.disabled = currentIndex === 0;
-      nextButton.disabled = currentIndex >= testimonials.length - visibleCount;
+      nextButton.addEventListener('click', () => {
+        if (currentIndex < testimonials.length - visibleCount) {
+          currentIndex++;
+          renderSlider();
+        }
+      });
+
+      prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderSlider();
+        }
+      });
+
+      window.addEventListener('resize', updateVisibleCount);
+      updateVisibleCount();
     }
 
-    nextButton.addEventListener('click', () => {
-      if (currentIndex < testimonials.length - visibleCount) {
-        currentIndex++;
-        renderSlider();
-      }
-    });
 
-    prevButton.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderSlider();
-      }
-    });
+    // Contact Form Logic
+    const form = document.getElementById('contact-form');
+    if (form) {
+      const formContainer = document.getElementById('contact-form-container');
+      const successMessage = document.getElementById('success-message');
+      const statusMessage = document.getElementById('form-status');
+      const submitButton = document.getElementById('submit-button');
 
-    window.addEventListener('resize', updateVisibleCount);
-    updateVisibleCount(); // Initial call
-  });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
+        const formData = new FormData(form);
+        formData.set('name', `${formData.get('first_name')} ${formData.get('last_name')}`);
 
-  // Contact Form Logic
-  const form = document.getElementById('contact-form');
-  const formContainer = document.getElementById('contact-form-container');
-  const successMessage = document.getElementById('success-message');
-  const statusMessage = document.getElementById('form-status');
-  const submitButton = document.getElementById('submit-button');
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+        statusMessage.innerHTML = "Submitting...";
+        statusMessage.classList.remove('text-red-500');
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Submitting...';
 
-    const formData = new FormData(form);
-    formData.set('name', `${formData.get('first_name')} ${formData.get('last_name')}`);
-
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
-
-    statusMessage.innerHTML = "Submitting...";
-    statusMessage.classList.remove('text-red-500');
-    submitButton.disabled = true;
-    submitButton.innerHTML = 'Submitting...';
-
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: json
-    })
-            .then(async (response) => {
-              let jsonResponse = await response.json();
-              if (response.status == 200) {
-                formContainer.style.display = 'none';
-                statusMessage.style.display = 'none';
-                successMessage.classList.remove('hidden');
-              } else {
-                console.log(response);
-                statusMessage.innerHTML = jsonResponse.message || "An error occurred.";
-                statusMessage.classList.add('text-red-500');
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Submit Request';
-              }
-            })
-            .catch(error => {
-              console.log(error);
-              statusMessage.innerHTML = "Something went wrong. Please try again.";
-              statusMessage.classList.add('text-red-500');
-              submitButton.disabled = false;
-              submitButton.innerHTML = 'Submit Request';
-            });
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: json
+        })
+                .then(async (response) => {
+                  let jsonResponse = await response.json();
+                  if (response.status == 200) {
+                    formContainer.style.display = 'none';
+                    statusMessage.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                  } else {
+                    statusMessage.innerHTML = jsonResponse.message || "An error occurred.";
+                    statusMessage.classList.add('text-red-500');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Submit Request';
+                  }
+                })
+                .catch(error => {
+                  statusMessage.innerHTML = "Something went wrong. Please try again.";
+                  statusMessage.classList.add('text-red-500');
+                  submitButton.disabled = false;
+                  submitButton.innerHTML = 'Submit Request';
+                });
+      });
+    }
   });
 </script>
 </body>
