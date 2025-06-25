@@ -143,25 +143,45 @@
         </div>
         <div class="mx-auto grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
           <!-- Service Cards -->
-          <div data-service-id="day-training" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
-            <div class="mb-4 inline-block"><i data-lucide="sun" class="h-10 w-10 text-primary"></i></div>
-            <h3 class="text-xl font-semibold">Day Training</h3>
-            <p class="text-sm text-muted-foreground mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
+          <div data-service-id="day-training" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6 text-center">
+              <div class="mb-4 inline-block"><i data-lucide="sun" class="h-10 w-10 text-primary"></i></div>
+              <h3 class="text-xl font-semibold">Day Training</h3>
+              <p class="text-sm text-muted-foreground mt-1">Intensive training for your dog to accelerate learning while you're busy.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0 text-center">
+              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
           </div>
-          <div data-service-id="private-lessons" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
-            <div class="mb-4 inline-block"><i data-lucide="user-check" class="h-10 w-10 text-primary"></i></div>
-            <h3 class="text-xl font-semibold">Private Lessons</h3>
-            <p class="text-sm text-muted-foreground mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
+          <div data-service-id="private-lessons" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6 text-center">
+              <div class="mb-4 inline-block"><i data-lucide="user-check" class="h-10 w-10 text-primary"></i></div>
+              <h3 class="text-xl font-semibold">Private Lessons</h3>
+              <p class="text-sm text-muted-foreground mt-1">Personalized one-on-one coaching for you and your dog in your home.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0 text-center">
+              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
           </div>
-          <div data-service-id="training-walks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
-            <div class="mb-4 inline-block"><i data-lucide="footprints" class="h-10 w-10 text-primary"></i></div>
-            <h3 class="text-xl font-semibold">Training Walks</h3>
-            <p class="text-sm text-muted-foreground mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
+          <div data-service-id="training-walks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6 text-center">
+              <div class="mb-4 inline-block"><i data-lucide="footprints" class="h-10 w-10 text-primary"></i></div>
+              <h3 class="text-xl font-semibold">Training Walks</h3>
+              <p class="text-sm text-muted-foreground mt-1">Combine exercise with focused training on leash manners and reactivity.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0 text-center">
+              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
           </div>
-          <div data-service-id="refresher-weeks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full p-6 text-center cursor-pointer transition-transform hover:-translate-y-1">
-            <div class="mb-4 inline-block"><i data-lucide="sparkles" class="h-10 w-10 text-primary"></i></div>
-            <h3 class="text-xl font-semibold">Refresher Weeks</h3>
-            <p class="text-sm text-muted-foreground mt-1">For past clients to sharpen skills and tune-up previous training.</p>
+          <div data-service-id="refresher-weeks" class="service-card rounded-lg border bg-card text-card-foreground shadow-sm h-full flex flex-col cursor-pointer transition-transform hover:-translate-y-1">
+            <div class="p-6 text-center">
+              <div class="mb-4 inline-block"><i data-lucide="sparkles" class="h-10 w-10 text-primary"></i></div>
+              <h3 class="text-xl font-semibold">Refresher Weeks</h3>
+              <p class="text-sm text-muted-foreground mt-1">For past clients to sharpen skills and tune-up previous training.</p>
+            </div>
+            <div class="mt-auto p-6 pt-0 text-center">
+              <span class="text-sm font-semibold text-primary">Learn More <i data-lucide="arrow-right" class="inline h-4 w-4 ml-1"></i></span>
+            </div>
           </div>
         </div>
       </div>
@@ -357,19 +377,43 @@
     const servicesData = {
       'day-training': {
         title: 'Day Training',
-        description: 'Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. We\'ll cover obedience, socialization, and specific behavior goals. At the end of each day, we\'ll have a transfer session to show you how to maintain the progress. This is perfect for busy owners who want to accelerate their dog\'s learning.'
+        description: 'Day Training is an intensive program where your dog spends the day with me for focused, one-on-one training sessions. This is perfect for busy owners who want to accelerate their dog\'s learning.',
+        features: [
+          'Accelerated learning in a focused environment',
+          'Daily one-on-one professional training',
+          'Socialization with other dogs and people',
+          'End-of-day transfer sessions to empower you'
+        ]
       },
       'private-lessons': {
         title: 'Private Lessons',
-        description: 'Private lessons are tailored to your specific needs and goals. I\'ll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands. Each session includes a customized training plan and hands-on coaching to empower you as the handler.'
+        description: 'Private lessons are tailored to your specific needs and goals. I\'ll work directly with you and your dog in your home environment to address challenges like leash pulling, jumping, barking, and basic commands.',
+        features: [
+          'Personalized training plan for your dog',
+          'Hands-on coaching in your own home',
+          'Flexible scheduling to fit your life',
+          'Focus on specific issues like reactivity or basic manners'
+        ]
       },
       'training-walks': {
         title: 'Training Walks',
-        description: 'Training Walks combine physical exercise with structured training. These aren\'t just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world. I handle the training so your dog gets mental and physical stimulation, making your own walks more enjoyable.'
+        description: 'Training Walks combine physical exercise with structured training. These aren\'t just walks around the block; they are focused sessions to improve leash manners, reactivity, and confidence in the real world.',
+        features: [
+          'Improves leash manners and reduces pulling',
+          'Builds confidence in reactive or anxious dogs',
+          'Provides mental and physical stimulation',
+          'Makes your own walks more enjoyable'
+        ]
       },
       'refresher-weeks': {
         title: 'Refresher Weeks',
-        description: 'Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors. It\'s a perfect next step to ensure long-term success and keep your dog\'s training on track.'
+        description: 'Refresher Weeks are designed exclusively for clients who have completed a Day Training program. This is a great way to sharpen existing skills, introduce new challenges, or tune-up behaviors.',
+        features: [
+          'Exclusive to previous Day Training clients',
+          'Sharpens existing skills and commands',
+          'Addresses any new behaviors that may have emerged',
+          'Ensures long-term training success'
+        ]
       }
     };
 
@@ -386,7 +430,15 @@
       if (!service) return;
 
       modalTitle.textContent = service.title;
-      modalBody.innerHTML = `<p>${service.description}</p>`;
+      const featuresHTML = service.features.map(feature => `
+                <li class="flex items-start gap-3">
+                    <i data-lucide="check-circle" class="h-4 w-4 text-primary mt-1 flex-shrink-0"></i>
+                    <span>${feature}</span>
+                </li>
+            `).join('');
+      modalBody.innerHTML = `<p>${service.description}</p><ul class="mt-4 space-y-2">${featuresHTML}</ul>`;
+      lucide.createIcons(); // Re-initialize icons inside the modal
+
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
 
@@ -454,7 +506,6 @@
                           <img src="${t.image}" alt="${t.name}" width="60" height="60" class="rounded-full">
                           <div><h3 class="font-medium">${t.name}</h3><p class="text-sm text-muted-foreground">${t.dogName} &bull; ${t.dogBreed}</p></div>
                         </div>
-                        <div class="flex mb-4">${Array(5).fill(0).map(() => `<i data-lucide="star" class="h-4 w-4 fill-primary text-primary"></i>`).join('')}</div>
                         <p class="text-muted-foreground">${t.text}</p>
                       </div>
                     </div>
