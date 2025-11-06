@@ -353,43 +353,7 @@
         }
 
         /* --- Approach Section --- */
-        #approach {
-            padding: 6rem 0;
-            background-color: var(--bg-light);
-        }
-
-        .trust-badge-card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-            padding: 2rem 1.5rem;
-            text-align: center;
-            background-color: #ffffff;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .trust-badge-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        .trust-badge-card img {
-            max-height: 100px;
-            margin-bottom: 1rem;
-        }
-
-        .trust-badge-card h4 {
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .trust-badge-card p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
+        /* (This block was a duplicate and has been removed) */
 
         /* --- About Section --- */
         #about {
@@ -500,7 +464,7 @@
             background: linear-gradient(rgba(0, 121, 107, 0.85), rgba(0, 121, 107, 0.85)),
             url('https://placehold.co/1920x1080/004D40/FFFFFF?text=Happy+Dog+Playing') no-repeat center center;
             background-size: cover;
-            background-attachment: fixed; /* Parallax-like effect */
+            /* background-attachment: fixed; -- REMOVED FOR PERFORMANCE. This causes scroll jitter. */
             color: #fff;
         }
 
@@ -688,7 +652,7 @@
             <!-- Third Trust Card -->
             <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
                 <div class="trust-badge-card w-100">
-                    <img src="httpsStorage://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC" alt="IAABC Member" class="img-fluid" onerror="this.src='httpss://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC'">
+                    <img src="https://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC" alt="IAABC Member" class="img-fluid" onerror="this.src='https://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC'">
                     <h4>Pursuing CDBC Credential</h4>
                     <p>Currently pursuing the Certified Dog Behavior Consultant (CDBC) credential through the IAABC.</p>
                 </div>
@@ -1004,9 +968,9 @@
 <script>
     // Initialize AOS
     AOS.init({
-        duration: 800,  // Animation duration
+        duration: 600,  // Animation duration (snappier)
         once: true,     // Whether animation should happen only once
-        offset: 50      // Offset (in px) from the original trigger point
+        offset: 120     // Offset (in px) from the original trigger point (prevents early fire)
     });
 
     // Activate Bootstrap scrollspy on the main nav element
