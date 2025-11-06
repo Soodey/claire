@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Ground Animal Training & Behavior</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Animate on Scroll (AOS) CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #00796B; /* Trustworthy Teal */
+            --accent-color: #F57C00;  /* Friendly Orange */
+            --text-dark: #2C3E50;     /* Dark Slate */
+            --text-light: #576574;    /* Lighter Slate */
+            --bg-light: #FDFEFE;
+            --border-radius: 0.5rem; /* Softer, rounded corners */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* --- Buttons --- */
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #E67E22; /* Darker orange */
+            border-color: #E67E22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* --- Hero Section --- */
+        #home {
+            height: 90vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+            url('https://placehold.co/1920x1080/00796B/FFFFFF?text=Hero+Image\n(Happy+Dog+%26+Owner)') no-repeat center center;
+            background-size: cover;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #home h2 {
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+
+        #home p {
+            font-size: 1.25rem;
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+
+        /* Responsive Hero Text */
+        @media (max-width: 768px) {
+            #home {
+                height: 95vh;
+                min-height: 600px;
+            }
+            #home h1 {
+                font-size: 2.5rem;
+            }
+            #home h2 {
+                font-size: 1.25rem;
+            }
+            #home p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* --- Services Section --- */
+        #services {
+            padding: 6rem 0;
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        /* Tab Styling */
+        .services-nav .nav-link {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            border: none;
+            border-bottom: 3px solid transparent;
+            border-radius: 0;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .services-nav .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom-color: var(--primary-color);
+        }
+
+        .services-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            padding-top: 2.5rem;
+        }
+
+        /* Service Card Styling */
+        .service-card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            height: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .service-card .card-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .service-card .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .service-card .card-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .service-card .card-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .service-card .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .service-card .list-group-item i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .service-card .btn {
+            margin-top: auto; /* Pushes button to the bottom */
+        }
+
+        /* Price List Styling (Private Lessons) */
+        .price-list .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            padding: 1.25rem 1.5rem;
+            border-color: #eee;
+        }
+
+        .price-list .price-item-name {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .price-list .price-item-details {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .price-list .price-item-cost {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        /* Perks List */
+        .perks-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .perks-list li {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .perks-list i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+
+        /* --- Approach Section --- */
+        #approach {
+            padding: 6rem 0;
+            background-color: var(--bg-light);
+        }
+
+        .trust-badge-card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .trust-badge-card img {
+            max-height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .trust-badge-card h4 {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-badge-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* --- About Section --- */
+        #about {
+            padding: 6rem 0;
+            background-color: #ffffff;
+        }
+
+        #about img {
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            width: 100%;
+        }
+
+        #about h2 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        #about .lead {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        #about p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        #about .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        #about .list-group-item i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        /* --- Details/Area Section --- */
+        #details {
+            padding: 6rem 0;
+            background-color: var(--bg-light);
+        }
+
+        .details-card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            background-color: #ffffff;
+            padding: 2rem;
+            height: 100%;
+        }
+
+        .details-card h3 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .details-card .list-group-item {
+            border: none;
+            padding: 0.6rem 0;
+            font-weight: 500;
+            color: var(--text-dark);
+            border-bottom: 1px solid #eee;
+        }
+
+        .details-card .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .details-card .list-group-item strong {
+            color: var(--text-dark);
+            margin-right: 0.5rem;
+            min-width: 60px;
+            display: inline-block;
+        }
+
+        .details-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #eee;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+            padding: 6rem 0;
+            background: linear-gradient(rgba(0, 121, 107, 0.85), rgba(0, 121, 107, 0.85)),
+            url('https://placehold.co/1920x1080/004D40/FFFFFF?text=Happy+Dog+Playing') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed; /* Parallax-like effect */
+            color: #fff;
+        }
+
+        #contact .section-title {
+            color: #fff;
+        }
+
+        #contact .section-subtitle {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .calendar-embed-placeholder {
+            background-color: #ffffff;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            height: 600px; /* Standard height for embeds */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dark);
+            overflow: hidden; /* To contain the embed */
+        }
+
+        .calendar-embed-placeholder i {
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .calendar-embed-placeholder h4 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+        }
+
+        .calendar-embed-placeholder p {
+            color: var(--text-light);
+            max-width: 400px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem 0 2rem 0;
+            background-color: var(--text-dark);
+            color: rgba(255,255,255,0.7);
+        }
+
+        footer .footer-brand {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        footer .footer-brand i {
+            color: var(--accent-color);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer .social-links a {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        footer .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        footer .footer-nav .nav-link {
+            padding: 0.25rem 0;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+        }
+
+        footer .footer-nav .nav-link:hover {
+            color: #fff;
+        }
+
+        footer .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Utility */
+        .mt-auto {
+            margin-top: auto;
+        }
+
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100">
+
+<!-- ==== Navigation Bar ==== -->
+<nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top py-3">
+    <div class="container">
+        <a class="navbar-brand" href="#home">
+            <i class="bi bi-heart-pulse-fill"></i> <!-- Simple logo placeholder -->
+            Common Ground
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#approach">Our Approach</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-primary btn-sm" href="#contact" role="button">Schedule an Inquiry</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ==== Hero Section ==== -->
+<section id="home">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <h1 class="display-3">Common Ground</h1>
+        <h2 class="mb-4">Animal Training & Behavior</h2>
+        <p class="lead mb-4">
+            Get the support you need with expertise you can trust.
+            Let’s turn your good dog into a great one!
+        </p>
+        <a href="#contact" class="btn btn-primary btn-lg">Schedule an Inquiry Call</a>
+    </div>
+</section>
+
+<!-- ==== Services Section ==== -->
+<section id="services">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h2 class="section-title">Services & Pricing</h2>
+                <p class="section-subtitle">
+                    Clear, upfront pricing for services tailored to you and your dog.
+                </p>
+            </div>
+        </div>
+
+        <!-- Services Tabs Navigation -->
+        <ul class="nav nav-tabs justify-content-center services-nav mb-4" id="servicesTab" role="tablist" data-aos="fade-up" data-aos-delay="100">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="day-training-tab" data-bs-toggle="tab" data-bs-target="#day-training" type="button" role="tab" aria-controls="day-training" aria-selected="true">Day Training</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="private-lessons-tab" data-bs-toggle="tab" data-bs-target="#private-lessons" type="button" role="tab" aria-controls="private-lessons" aria-selected="false">Private Lessons</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="client-perks-tab" data-bs-toggle="tab" data-bs-target="#client-perks" type="button" role="tab" aria-controls="client-perks" aria-selected="false">Client Perks</button>
+            </li>
+        </ul>
+
+        <!-- Services Tabs Content -->
+        <div class="tab-content" id="servicesTabContent">
+
+            <!-- Day Training Tab Pane -->
+            <div class="tab-pane fade show active" id="day-training" role="tabpanel" aria-labelledby="day-training-tab">
+                <div class="row justify-content-center g-4">
+                    <div class="col-lg-10 text-center mb-3" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="fw-bold fs-4">Day Training</h3>
+                        <p class="lead text-muted fs-6">Manners training to create and reinforce the skills you want to see in your dog, all in the comfort of your home while you work!</p>
+                    </div>
+                    <!-- 3 Week Package -->
+                    <div class="col-lg-5 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-card w-100">
+                            <div class="card-body">
+                                <h3 class="card-title">3-Week Day Train</h3>
+                                <h4 class="card-price">$1500</h4>
+                                <p class="card-text">A 3-day-per-week training program to build a strong foundation.</p>
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> Zoom Consult</li>
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> 9 One-on-One Sessions</li>
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> 2 Progress Lessons</li>
+                                </ul>
+                                <a href="#contact" class="btn btn-primary mt-auto">Schedule Inquiry</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 6 Week Package -->
+                    <div class="col-lg-5 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-card w-100">
+                            <div class="card-body">
+                                <h3 class="card-title">6-Week Day Train</h3>
+                                <h4 class="card-price">$2850</h4>
+                                <p class="card-text">Our most comprehensive package for lasting skills and behaviors.</p>
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> Zoom Consult</li>
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> 18 One-on-One Sessions</li>
+                                    <li class="list-group-item"><i class="bi bi-check-circle-fill"></i> 3 Progress Lessons</li>
+                                </ul>
+                                <a href="#contact" class="btn btn-outline-primary mt-auto">Schedule Inquiry</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Private Lessons Tab Pane -->
+            <div class="tab-pane fade" id="private-lessons" role="tabpanel" aria-labelledby="private-lessons-tab">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold fs-4">Private Lessons</h3>
+                            <p class="lead text-muted fs-6">A one-on-one custom approach for you and your dog, working together.</p>
+                        </div>
+                        <div class="price-list">
+                            <ul class="list-group list-group-flush shadow-sm rounded-3">
+                                <li class="list-group-item">
+                                    <div>
+                                        <span class="price-item-name">Initial Consult</span>
+                                        <span class="price-item-details">75-90 minutes</span>
+                                    </div>
+                                    <span class="price-item-cost">$175</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <div>
+                                        <span class="price-item-name">Single Session</span>
+                                        <span class="price-item-details">60 minutes</span>
+                                    </div>
+                                    <span class="price-item-cost">$150</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <div>
+                                        <span class="price-item-name">4-Session Bundle</span>
+                                        <span class="price-item-details">$145 per session</span>
+                                    </div>
+                                    <span class="price-item-cost">$580</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <div>
+                                        <span class="price-item-name">Initial Consult + 4 Sessions</span>
+                                        <span class="price-item-details">Full package bundle</span>
+                                    </div>
+                                    <span class="price-item-cost">$750</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="#contact" class="btn btn-primary">Schedule Your Consult</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Perks Tab Pane -->
+            <div class="tab-pane fade" id="client-perks" role="tabpanel" aria-labelledby="client-perks-tab">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold fs-4">Bonuses for Current Clients</h3>
+                            <p class="lead text-muted fs-6">For graduates of any private lesson package or day training program.</p>
+                        </div>
+
+                        <ul class="perks-list">
+                            <li data-aos="fade-left" data-aos-delay="300"><i class="bi bi-award-fill"></i> One-week day train refresher</li>
+                            <li data-aos="fade-left" data-aos-delay="400"><i class="bi bi-people-fill"></i> Access to custom puppy play groups</li>
+                            <li data-aos="fade-left" data-aos-delay="500"><i class="bi bi-cone-striped"></i> Training walks (30-45 min)</li>
+                            <li data-aos="fade-left" data-aos-delay="600"><i class="bi bi-compass-fill"></i> Leash Walk clinics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== About Section ==== -->
+<section id="about">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <!-- About Image -->
+            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
+                <img src="https://placehold.co/600x700/2C3E50/FFFFFF?text=Professional+Headshot\n(Claire+%26+Dog)" alt="Claire, Professional Dog Trainer" class="img-fluid" onerror="this.src='https://placehold.co/600x700/2C3E50/FFFFFF?text=Headshot'">
+            </div>
+
+            <!-- About Content -->
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+                <h2>Meet Your Trainer, Claire</h2>
+                <p class="lead">
+                    My journey in the dog world began in 2015 as a dog walker. Since then, I’ve dedicated my career to understanding and improving the lives of dogs and their people.
+                </p>
+                <p>
+                    Over the years, I’ve worked in multiple Chicago dog daycares in a variety of roles—including receptionist, handler, trainer, and medicator—as well as in a veterinary setting. These diverse experiences have given me a deep appreciation for canine behavior, health, and communication, and inspired my commitment to helping dogs thrive.
+                </p>
+                <p>
+                    I am dedicated to continued education and love that I get to constantly be learning. I've had the privilege of studying under respected industry leaders, and I bring that knowledge to every training session I lead.
+                </p>
+
+                <ul class="list-group list-group-flush mt-4">
+                    <li class="list-group-item"><i class="bi bi-patch-check-fill"></i>Certified Professional Dog Trainer (CPDT-KA)</li>
+                    <li class="list-group-item"><i class="bi bi-patch-check-fill"></i>Fear Free Certified Professional</li>
+                    <li class="list-group-item"><i class="bi bi-book-fill"></i>Pursuing CDBC credential via IAABC</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-primary mt-4">Let's Work Together</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== Details Section (Area & Policies) ==== -->
+<section id="details">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h2 class="section-title">Service Area & Policies</h2>
+                <p class="section-subtitle">
+                    Serving Chicago Proper with clear and simple policies.
+                    </D>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Service Area -->
+            <div class="col-lg-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <div class="details-card w-100">
+                    <h3><i class="bi bi-geo-alt-fill me-2"></i>Service Area</h3>
+                    <p>In-home services are available within the following boundaries in Chicago Proper:</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>North:</strong> Foster Ave</li>
+                        <li class="list-group-item"><strong>East:</strong> Lake Michigan</li>
+                        <li class="list-group-item"><strong>South:</strong> Cermak</li>
+                        <li class="list-group-item"><strong>West:</strong> Cicero Ave</li>
+                    </ul>
+                    <div class="map-placeholder">
+                        <p class="mb-0">Simple Map Graphic<br>Illustrating Service Area</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policies -->
+            <div class="col-lg-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+                <div class="details-card w-100">
+                    <h3><i class="bi bi-clipboard-check-fill me-2"></i>Parking Policy</h3>
+                    <p>
+                        To ensure I can get to our session on time, please note the following:
+                    </p>
+                    <ul class="perks-list mt-3">
+                        <li data-aos="fade-left" data-aos-delay="300"><i class="bi bi-coin"></i>Parking fees will apply to addresses that require paid street parking.</li>
+                        <li data-aos="fade-left" data-aos-delay="400"><i class="bi bi-ticket-perforated-fill"></i>If your address requires permit parking, please provide parking stickers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== Contact Section ==== -->
+<section id="contact">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title">Ready to Build a Better Bond?</h2>
+                <p class="section-subtitle">
+                    The first step is a no-obligation inquiry call.
+                    Use the calendar below to find a time that works for you, and let's start the conversation.
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
+                <div class="calendar-embed-placeholder">
+                    <!-- Google Calendar Appointment Scheduling begin -->
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2qEHG7TooCQkoEpsfBmPM7Q5nd8dgjjk-9keyqUbgDNnRy9YIIfGevmElUWd3GgwMUknjVJzRW?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                    <!-- end Google Calendar Appointment Scheduling -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== Footer ==== -->
+<footer>
+    <div class="container">
+        <div class="row g-4 text-center text-md-start">
+            <!-- Brand -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <a class="footer-brand" href="#home">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                    Common Ground
+                </a>
+                <p>
+                    Force-free, science-based training to help you and your dog build a stronger, more joyful relationship.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+                <ul class="nav flex-column footer-nav">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#approach" class="nav-link">Our Approach</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Social -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <h5 class="text-white fw-bold mb-3">Get in Touch</h5>
+                <p>Serving Chicago Proper</p>
+                <div class="social-links mt-3">
+                    <!-- Add your social media links here -->
+                    <a href="#" aria-label="Instagram" data-aos="fade-up" data-aos-delay="400"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="Facebook" data-aos="fade-up" data-aos-delay="500"><i class="bi bi-facebook"></i></a>
+                    <a href="mailto:claire@commonground.com" aria-label="Email" data-aos="fade-up" data-aos-delay="600"><i class="bi bi-envelope-fill"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="copyright">
+                    &copy; <span id="copyright-year"></span> Common Ground Animal Training & Behavior. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Bootstrap 5.3 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Animate on Scroll (AOS) JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,  // Animation duration
+        once: true,     // Whether animation should happen only once
+        offset: 50      // Offset (in px) from the original trigger point
+    });
+
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector('#mainNavbar');
+    if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#mainNavbar',
+            offset: 100,
+        });
+    };
+
+    // Set Copyright Year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
