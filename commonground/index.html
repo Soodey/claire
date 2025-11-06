@@ -30,12 +30,16 @@
             --border-radius: 0.5rem; /* Softer, rounded corners */
         }
 
+        html, body {
+            overflow-x: hidden; /* Prevents horizontal scroll from AOS animations */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-dark);
             background-color: var(--bg-light);
             scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-            overflow-x: hidden; /* Prevents horizontal scroll from AOS animations */
+            /* overflow-x: hidden;  -- MOVED TO 'html, body' rule */
         }
 
         /* --- Navigation --- */
@@ -348,6 +352,45 @@
             font-size: 0.9rem;
         }
 
+        /* --- Approach Section --- */
+        #approach {
+            padding: 6rem 0;
+            background-color: var(--bg-light);
+        }
+
+        .trust-badge-card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .trust-badge-card img {
+            max-height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .trust-badge-card h4 {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-badge-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
         /* --- About Section --- */
         #about {
             padding: 6rem 0;
@@ -607,6 +650,50 @@
             Let’s turn your good dog into a great one!
         </p>
         <a href="#contact" class="btn btn-primary btn-lg">Schedule an Inquiry Call</a>
+    </div>
+</section>
+
+<!-- ==== Approach Section ==== -->
+<section id="approach">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h2 class="section-title">Training Rooted in Trust & Science</h2>
+                <p class="section-subtitle">
+                    My approach is rooted in ethics, compassion, and evidence-based, Fear-Free methods. I'm dedicated to helping dogs and their humans build stronger, more joyful relationships through understanding and trust.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Main Trust Card -->
+            <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <div class="trust-badge-card w-100">
+                    <img src="https://placehold.co/100x100/00796B/FFFFFF?text=CPDT-KA" alt="CPDT-KA Certified" class="img-fluid" onerror="this.src='https://placehold.co/100x100/00796B/FFFFFF?text=CPDT-KA'">
+                    <h4>Certified Professional Dog Trainer (CPDT-KA)</h4>
+                    <p>Knowledge Assessed certification ensuring a thorough understanding of canine behavior and modern training techniques.</p>
+                </div>
+            </div>
+
+            <!-- Second Trust Card -->
+            <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+                <div class="trust-badge-card w-100">
+                    <img src="https://placehold.co/100x100/F57C00/FFFFFF?text=Fear+Free" alt="Fear Free Certified" class="img-fluid" onerror="this.src='https://placehold.co/100x100/F57C00/FFFFFF?text=Fear+Free'">
+                    <h4>Fear Free Certified Professional</h4>
+                    <p>Committed to preventing and alleviating fear, anxiety, and stress in pets during training and handling.</p>
+                </div>
+            </div>
+
+            <!-- Third Trust Card -->
+            <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+                <div class="trust-badge-card w-100">
+                    <img src="httpsStorage://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC" alt="IAABC Member" class="img-fluid" onerror="this.src='httpss://placehold.co/100x100/2C3E50/FFFFFF?text=IAABC'">
+                    <h4>Pursuing CDBC Credential</h4>
+                    <p>Currently pursuing the Certified Dog Behavior Consultant (CDBC) credential through the IAABC.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
