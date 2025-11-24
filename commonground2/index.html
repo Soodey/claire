@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Ground | Modern Animal Training</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-heart-pulse-fill me-2"></i>Common Ground
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#approach">Approach</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary-custom btn-sm" href="#contact">Book Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container hero-content text-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="hero-title">Training Rooted in<br>Trust & Science</h1>
+                <p class="hero-subtitle mb-5">Force-free, evidence-based training to help you and your dog<br>build a
+                    stronger, more joyful relationship.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#contact" class="btn btn-primary-custom">Start Your Journey</a>
+                    <a href="#services" class="btn btn-outline-custom">View Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach / Trust Badges -->
+    <section id="approach" class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-award-fill"></i>
+                        </div>
+                        <h4>CPDT-KA Certified</h4>
+                        <p class="text-muted">Certified Professional Dog Trainer - Knowledge Assessed. Ensuring thorough
+                            understanding of modern techniques.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-heart-fill"></i>
+                        </div>
+                        <h4>Fear Free Certified</h4>
+                        <p class="text-muted">Committed to preventing and alleviating fear, anxiety, and stress in pets
+                            during training.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card text-center">
+                        <div class="icon-box mx-auto">
+                            <i class="bi bi-book-fill"></i>
+                        </div>
+                        <h4>Science Based</h4>
+                        <p class="text-muted">Certified Dog Behavior Consultant (CDBC) credential obtained through the
+                            IAABC.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold mb-3">Our Services</h2>
+                <p class="lead text-muted">Tailored solutions for every dog and lifestyle</p>
+            </div>
+
+            <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist" data-aos="fade-up">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-day-tab" data-bs-toggle="pill" data-bs-target="#pills-day"
+                        type="button">Day Training</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-private-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-private" type="button">Private Lessons</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Day Training -->
+                <div class="tab-pane fade show active" id="pills-day" role="tabpanel">
+                    <div class="row justify-content-center g-4">
+                        <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+                            <div class="pricing-card h-100">
+                                <h3>3-Week Program</h3>
+                                <div class="price">$1500</div>
+                                <p class="text-muted mb-4">Perfect for building a strong foundation of skills.</p>
+                                <ul class="list-unstyled check-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> Initial Zoom Consult</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> 9 One-on-One Sessions</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> 2 Progress Lessons</li>
+                                </ul>
+                                <a href="#contact" class="btn btn-outline-dark w-100 mt-4 rounded-pill">Inquire Now</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
+                            <div class="pricing-card popular h-100">
+                                <span class="popular-badge">Most Comprehensive</span>
+                                <h3>6-Week Program</h3>
+                                <div class="price">$2850</div>
+                                <p class="text-muted mb-4">For lasting behavioral change and advanced skills.</p>
+                                <ul class="list-unstyled check-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> Initial Zoom Consult</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> 18 One-on-One Sessions</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> 3 Progress Lessons</li>
+                                </ul>
+                                <a href="#contact" class="btn btn-primary-custom w-100 mt-4">Inquire Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Private Lessons -->
+                <div class="tab-pane fade" id="pills-private" role="tabpanel">
+                    <div class="row justify-content-center g-4">
+                        <div class="col-lg-10 text-center mb-4">
+                            <h3>Private Coaching</h3>
+                            <p class="lead text-muted">A one-on-one custom approach for you and your dog, working
+                                together.</p>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                            <div class="private-lesson-card text-center">
+                                <h5>Initial Consult</h5>
+                                <p class="text-muted small">75-90 minutes</p>
+                                <div class="private-lesson-price my-3">$175</div>
+                                <p class="small text-muted">Comprehensive assessment and planning session.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                            <div class="private-lesson-card text-center">
+                                <h5>Single Session</h5>
+                                <p class="text-muted small">60 minutes</p>
+                                <div class="private-lesson-price my-3">$150</div>
+                                <p class="small text-muted">Focused one-on-one training on specific goals.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                            <div class="private-lesson-card text-center">
+                                <h5>4-Session Bundle</h5>
+                                <p class="text-muted small">$145 per session</p>
+                                <div class="private-lesson-price my-3">$580</div>
+                                <p class="small text-muted">Save on a package of four training sessions.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                            <div class="private-lesson-card text-center border-primary">
+                                <h5>Full Package</h5>
+                                <p class="text-muted small">Consult + 4 Sessions</p>
+                                <div class="private-lesson-price my-3">$750</div>
+                                <p class="small text-muted">Complete bundle to get you started right.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center mt-4">
+                            <a href="#contact" class="btn btn-primary-custom">Schedule Consult</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Perks Section -->
+            <div class="perks-section" data-aos="fade-up">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <h3 class="fw-bold mb-3">Bonuses for Current Clients</h3>
+                        <p class="text-muted mb-0">Exclusive perks for graduates of any private lesson package or day
+                            training program.</p>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="perk-item">
+                                    <div class="perk-icon"><i class="bi bi-award-fill"></i></div>
+                                    One-week day train refresher
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="perk-item">
+                                    <div class="perk-icon"><i class="bi bi-people-fill"></i></div>
+                                    Custom puppy play groups
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="perk-item">
+                                    <div class="perk-icon"><i class="bi bi-cone-striped"></i></div>
+                                    Training walks (30-45 min)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="perk-item">
+                                    <div class="perk-icon"><i class="bi bi-compass-fill"></i></div>
+                                    Leash Walk clinics
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Trainer with dog">
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h2 class="display-5 fw-bold mb-4">Meet Claire</h2>
+                    <p class="lead text-muted mb-4">Dedicated to understanding and improving the lives of dogs and their
+                        people since 2015.</p>
+                    <p class="mb-3">My journey began as a dog walker and evolved through diverse roles in daycares and
+                        veterinary settings. These experiences gave me a deep appreciation for canine behavior, health,
+                        and communication.</p>
+                    <p class="mb-4">Over the years, I’ve worked in multiple Chicago dog daycares in a variety of
+                        roles—including receptionist, handler, trainer, and medicator—as well as in a veterinary
+                        setting. I am dedicated to continued education and love that I get to constantly be learning.
+                        I've had the privilege of studying under respected industry leaders, and I bring that knowledge
+                        to every training session I lead.</p>
+                    <div class="d-flex gap-4 mb-4">
+                        <div>
+                            <h3 class="h2 fw-bold text-primary">8+</h3>
+                            <p class="text-muted">Years Experience</p>
+                        </div>
+                        <div>
+                            <h3 class="h2 fw-bold text-primary">100+</h3>
+                            <p class="text-muted">Happy Clients</p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-outline-dark rounded-pill px-4">Let's Work Together</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details / Map -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <div class="feature-card">
+                        <h3><i class="bi bi-geo-alt-fill text-primary me-2"></i>Service Area</h3>
+                        <p class="text-muted mb-4">Serving Chicago Proper within these boundaries:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>North:</strong> Foster Ave</li>
+                            <li class="mb-2"><strong>East:</strong> Lake Michigan</li>
+                            <li class="mb-2"><strong>South:</strong> Cermak</li>
+                            <li class="mb-2"><strong>West:</strong> Cicero Ave</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <h3><i class="bi bi-info-circle-fill text-primary me-2"></i>Policies</h3>
+                        <p class="text-muted">To ensure smooth sessions:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-3"><i class="bi bi-coin text-warning me-2"></i> Parking fees apply for paid
+                                street parking zones.</li>
+                            <li><i class="bi bi-ticket-perforated text-warning me-2"></i> Please provide stickers for
+                                permit parking areas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="display-4 fw-bold mb-3">Ready to Start?</h2>
+                    <p class="lead opacity-75">Schedule a no-obligation inquiry call to discuss your goals.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="contact-card text-center">
+                        <i class="bi bi-calendar-event display-1 mb-4 d-block opacity-50"></i>
+                        <h4>Calendar Loading...</h4>
+                        <p class="opacity-75">Select a time that works for you.</p>
+                        <!-- Placeholder for calendar embed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h5 class="footer-heading">Common Ground</h5>
+                    <p class="mb-4">Force-free, science-based training for a lifetime of trust.</p>
+                    <div>
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="footer-heading">Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="footer-link">Home</a></li>
+                        <li class="mb-2"><a href="#services" class="footer-link">Services</a></li>
+                        <li class="mb-2"><a href="#about" class="footer-link">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="footer-heading">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="footer-link">Privacy</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="footer-heading">Contact</h5>
+                    <p class="mb-2"><i class="bi bi-geo-alt me-2"></i> Chicago, IL</p>
+                    <p><i class="bi bi-envelope me-2"></i> claire@commonground.com</p>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-5 pt-4 text-center text-muted">
+                <small>&copy; <span id="year"></span> Common Ground Animal Training. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800
+        });
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('shadow-sm');
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                document.querySelector('.navbar').classList.remove('shadow-sm');
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+
+</html>
