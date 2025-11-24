@@ -331,12 +331,15 @@ footer {
 
 /* Tab Animations */
 .tab-pane {
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    /* Instant hide so the next tab starts immediately */
+    transition: opacity 0s, transform 0s;
     opacity: 0;
     transform: translateY(10px);
 }
 
 .tab-pane.show {
+    /* Animate in */
+    transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 1;
     transform: translateY(0);
 }
