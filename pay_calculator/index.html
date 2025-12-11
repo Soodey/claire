@@ -98,7 +98,7 @@
         <div class="mb-6 p-4 bg-orange-50 rounded-xl border border-orange-100 relative overflow-hidden">
           <div class="flex justify-between items-end mb-3 relative z-10">
             <div>
-              <label class="text-xs font-bold text-orange-800 uppercase tracking-wide block mb-1">Old Pay Classification</label>
+              <label class="text-xs font-bold text-orange-800 uppercase tracking-wide block mb-1">Session Classification</label>
               <p class="text-xs text-orange-600/80 leading-snug">
                 Only matters for Old Pay.<br>How many total sessions are "Initial"?
               </p>
@@ -134,6 +134,18 @@
             <label class="text-sm font-medium text-slate-600">Specialized Admin ($18/hr)</label>
             <div class="flex items-center gap-2">
               <input type="number" v-model.number="inputs.adminSpecHours" class="w-20 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <span class="text-xs text-slate-400 w-6">hrs</span>
+            </div>
+          </div>
+
+          <!-- Session Prep (New Input) -->
+          <div class="flex items-center justify-between group">
+            <div>
+              <label class="text-sm font-bold text-indigo-900">Session Prep / Support</label>
+              <p class="text-[10px] text-slate-400">Previously built-in ($0/hr)</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="number" v-model.number="inputs.prepHours" class="w-20 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-1.5 text-right font-semibold text-indigo-700 focus:ring-2 focus:ring-indigo-500 outline-none">
               <span class="text-xs text-slate-400 w-6">hrs</span>
             </div>
           </div>
@@ -283,6 +295,18 @@
               <div class="text-[10px] text-indigo-400 mt-1">Flat Rate (${{config.newHourlyRate}}/hr)</div>
             </td>
           </tr>
+          <!-- Prep Support (New) -->
+          <tr class="hover:bg-slate-50/50 transition-colors">
+            <td class="px-6 py-4 font-bold text-slate-700">Session Prep / Support</td>
+            <td class="px-6 py-4 text-right">
+              <div class="font-mono font-semibold text-slate-400">$0.00</div>
+              <div class="text-[10px] text-slate-400 mt-1">Built-in (Unpaid)</div>
+            </td>
+            <td class="px-6 py-4 text-right bg-indigo-50/30">
+              <div class="font-mono font-bold text-indigo-700">{{ formatCurrency(newBreakdown.prep) }}</div>
+              <div class="text-[10px] text-indigo-400 mt-1">Hourly (${{config.newHourlyRate}} &times; {{inputs.prepHours}}h)</div>
+            </td>
+          </tr>
           <!-- Travel -->
           <tr class="hover:bg-slate-50/50 transition-colors">
             <td class="px-6 py-4 font-bold text-slate-700">Travel Time</td>
@@ -352,8 +376,9 @@
         initialCount: 4, // Slider value
         adminStdHours: 6,
         adminSpecHours: 2,
+        prepHours: 0,    // NEW: Session Prep Support
         travelHours: 8,
-        mileage: 81 // New fixed mileage
+        mileage: 81
       });
 
       const config = ref({
@@ -380,6 +405,7 @@
         const sessionPay = (initial * 112.5) + (followups * 67.5);
         const adminPay = (inputs.value.adminStdHours * 15) + (inputs.value.adminSpecHours * 18);
         const mileagePay = inputs.value.mileage;
+        // Prep pay is $0 in old structure
 
         return {
           sessions: sessionPay,
@@ -408,20 +434,23 @@
         const adminHours = inputs.value.adminStdHours + inputs.value.adminSpecHours;
         const adminPay = adminHours * rate;
 
+        const prepPay = (inputs.value.prepHours || 0) * rate;
+
         const travelPay = inputs.value.travelHours * rate;
         const mileagePay = inputs.value.mileage;
 
         // For rate chart calculation
-        const totalBillableHours = totalSessionHours + adminHours + inputs.value.travelHours;
+        const totalBillableHours = totalSessionHours + adminHours + inputs.value.travelHours + (inputs.value.prepHours || 0);
 
         return {
           sessions: sessionPay,
           sessionHours: totalSessionHours,
           admin: adminPay,
+          prep: prepPay,
           travel: travelPay,
           mileage: mileagePay,
           totalBillableHours: totalBillableHours,
-          total: sessionPay + adminPay + travelPay + mileagePay
+          total: sessionPay + adminPay + prepPay + travelPay + mileagePay
         };
       });
 
@@ -466,8 +495,13 @@
         const ctx = document.getElementById('payChart');
         if(!ctx) return;
 
-        const oldData = [oldBreakdown.value.sessions, oldBreakdown.value.admin, 0, oldBreakdown.value.mileage];
-        const newData = [newBreakdown.value.sessions, newBreakdown.value.admin, newBreakdown.value.travel, newBreakdown.value.mileage];
+        // Group Admin + Prep for the chart to keep it simple, or we could add a new bar.
+        // Let's group them into "Hourly Support"
+        const oldHourlySupport = oldBreakdown.value.admin;
+        const newHourlySupport = newBreakdown.value.admin + newBreakdown.value.prep;
+
+        const oldData = [oldBreakdown.value.sessions, oldHourlySupport, 0, oldBreakdown.value.mileage];
+        const newData = [newBreakdown.value.sessions, newHourlySupport, newBreakdown.value.travel, newBreakdown.value.mileage];
 
         if (barChartInstance) {
           barChartInstance.data.datasets[0].data = oldData;
@@ -477,7 +511,7 @@
           barChartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Session Income', 'Admin/Backend', 'Travel Pay', 'Mileage'],
+              labels: ['Session Income', 'Hourly Support', 'Travel Pay', 'Mileage'],
               datasets: [
                 { label: 'Current Structure', data: oldData, backgroundColor: '#94a3b8', borderRadius: 4, barPercentage: 0.6 },
                 { label: 'Proposed Structure', data: newData, backgroundColor: '#6366f1', borderRadius: 4, barPercentage: 0.6 }
