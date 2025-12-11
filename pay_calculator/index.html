@@ -140,17 +140,6 @@
 
           <div class="h-px bg-slate-100 my-2"></div>
 
-          <!-- Mileage -->
-          <div class="flex items-center justify-between group">
-            <label class="text-sm font-bold text-emerald-700">Mileage Reimb. (Fixed)</label>
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-400">$</span>
-              <input type="number" v-model.number="inputs.mileage" class="w-20 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5 text-right font-semibold text-emerald-700 focus:ring-2 focus:ring-emerald-500 outline-none">
-            </div>
-          </div>
-
-          <div class="h-px bg-slate-100 my-2"></div>
-
           <!-- Travel -->
           <div class="flex items-center justify-between group">
             <div>
@@ -160,6 +149,17 @@
             <div class="flex items-center gap-2">
               <input type="number" v-model.number="inputs.travelHours" class="w-20 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-1.5 text-right font-semibold text-indigo-700 focus:ring-2 focus:ring-indigo-500 outline-none">
               <span class="text-xs text-slate-400 w-6">hrs</span>
+            </div>
+          </div>
+
+          <div class="h-px bg-slate-100 my-2"></div>
+
+          <!-- Mileage -->
+          <div class="flex items-center justify-between group">
+            <label class="text-sm font-bold text-emerald-700">Mileage Reimb. (Fixed)</label>
+            <div class="flex items-center gap-2">
+              <input type="number" v-model.number="inputs.mileage" class="w-20 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5 text-right font-semibold text-emerald-700 focus:ring-2 focus:ring-emerald-500 outline-none">
+              <span class="text-xs text-slate-400 w-6">$</span>
             </div>
           </div>
         </div>
