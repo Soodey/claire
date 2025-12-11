@@ -73,7 +73,7 @@
       <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
         <div class="flex items-center gap-2 mb-4">
           <span class="bg-blue-100 text-blue-700 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">1</span>
-          <h2 class="text-lg font-semibold text-slate-800">Session Mix (Weekly)</h2>
+          <h2 class="text-lg font-semibold text-slate-800">Session Mix (Per Paycheck)</h2>
         </div>
 
         <div class="grid grid-cols-3 gap-3 mb-6">
@@ -116,7 +116,7 @@
       <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
         <div class="flex items-center gap-2 mb-4">
           <span class="bg-blue-100 text-blue-700 w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">2</span>
-          <h2 class="text-lg font-semibold text-slate-800">Support Hours</h2>
+          <h2 class="text-lg font-semibold text-slate-800">Paycheck Variables</h2>
         </div>
 
         <div class="space-y-4">
@@ -135,6 +135,17 @@
             <div class="flex items-center gap-2">
               <input type="number" v-model.number="inputs.adminSpecHours" class="w-20 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
               <span class="text-xs text-slate-400 w-6">hrs</span>
+            </div>
+          </div>
+
+          <div class="h-px bg-slate-100 my-2"></div>
+
+          <!-- Mileage -->
+          <div class="flex items-center justify-between group">
+            <label class="text-sm font-bold text-emerald-700">Mileage Reimb. (Fixed)</label>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400">$</span>
+              <input type="number" v-model.number="inputs.mileage" class="w-20 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5 text-right font-semibold text-emerald-700 focus:ring-2 focus:ring-emerald-500 outline-none">
             </div>
           </div>
 
@@ -183,7 +194,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Old Pay -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between h-32">
-          <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Pay</p>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Paycheck</p>
           <div>
             <p class="text-3xl font-bold text-slate-700">{{ formatCurrency(oldTotal) }}</p>
             <p class="text-xs text-slate-400 mt-1">Based on Session Type</p>
@@ -193,7 +204,7 @@
         <!-- New Pay -->
         <div class="bg-slate-900 p-5 rounded-2xl shadow-lg border border-slate-700 relative overflow-hidden flex flex-col justify-between h-32 group">
           <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover:scale-110 duration-700"></div>
-          <p class="text-xs font-bold text-indigo-300 uppercase tracking-widest relative z-10">Proposed Pay</p>
+          <p class="text-xs font-bold text-indigo-300 uppercase tracking-widest relative z-10">Proposed Paycheck</p>
           <div class="relative z-10">
             <p class="text-3xl font-bold text-white">{{ formatCurrency(newTotal) }}</p>
             <p class="text-xs text-indigo-300/70 mt-1">Based on Hours + Bonus</p>
@@ -206,7 +217,7 @@
           <div>
             <p class="text-3xl font-bold">{{ diffPrefix }}{{ formatCurrency(Math.abs(difference)) }}</p>
             <p class="text-xs opacity-70 mt-1 font-medium">
-              {{ difference > 0 ? 'Increase per week' : 'Decrease per week' }}
+              {{ difference > 0 ? 'Increase per check' : 'Decrease per check' }}
             </p>
           </div>
         </div>
@@ -284,10 +295,22 @@
               <div class="text-[10px] text-indigo-400 mt-1">Hourly (${{config.newHourlyRate}} &times; {{inputs.travelHours}}h)</div>
             </td>
           </tr>
+          <!-- Mileage -->
+          <tr class="hover:bg-slate-50/50 transition-colors">
+            <td class="px-6 py-4 font-bold text-slate-700">Mileage Reimb.</td>
+            <td class="px-6 py-4 text-right">
+              <div class="font-mono font-semibold text-slate-700">{{ formatCurrency(inputs.mileage) }}</div>
+              <div class="text-[10px] text-slate-400 mt-1">Fixed Input</div>
+            </td>
+            <td class="px-6 py-4 text-right bg-indigo-50/30">
+              <div class="font-mono font-bold text-indigo-700">{{ formatCurrency(inputs.mileage) }}</div>
+              <div class="text-[10px] text-indigo-400 mt-1">Fixed Input</div>
+            </td>
+          </tr>
           </tbody>
           <tfoot class="bg-slate-50 font-bold text-slate-800 border-t border-slate-200">
           <tr>
-            <td class="px-6 py-4">Total Weekly Pay</td>
+            <td class="px-6 py-4">Total Bi-Weekly Pay</td>
             <td class="px-6 py-4 text-right text-lg">{{ formatCurrency(oldTotal) }}</td>
             <td class="px-6 py-4 text-right text-lg text-indigo-700 bg-indigo-100/30">{{ formatCurrency(newTotal) }}</td>
           </tr>
@@ -300,7 +323,7 @@
         <div class="flex justify-between items-start mb-6">
           <div>
             <h3 class="text-lg font-bold text-slate-800">Rate Sensitivity Analysis</h3>
-            <p class="text-sm text-slate-500 mt-1">How weekly pay changes with different hourly rates</p>
+            <p class="text-sm text-slate-500 mt-1">How paycheck changes with different hourly rates</p>
           </div>
           <div class="text-right bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100" v-if="breakEvenRate > 0 && isFinite(breakEvenRate)">
             <div class="text-xs font-bold uppercase text-emerald-800 tracking-wider mb-1">Break Even Rate</div>
@@ -323,13 +346,14 @@
     setup() {
       // Initial Inputs
       const inputs = ref({
-        count30: 2,
-        count60: 3,
-        count90: 2,
-        initialCount: 2, // Slider value
-        adminStdHours: 3,
-        adminSpecHours: 1,
-        travelHours: 4
+        count30: 4,
+        count60: 6,
+        count90: 4,
+        initialCount: 4, // Slider value
+        adminStdHours: 6,
+        adminSpecHours: 2,
+        travelHours: 8,
+        mileage: 81 // New fixed mileage
       });
 
       const config = ref({
@@ -355,8 +379,14 @@
 
         const sessionPay = (initial * 112.5) + (followups * 67.5);
         const adminPay = (inputs.value.adminStdHours * 15) + (inputs.value.adminSpecHours * 18);
+        const mileagePay = inputs.value.mileage;
 
-        return { sessions: sessionPay, admin: adminPay, total: sessionPay + adminPay };
+        return {
+          sessions: sessionPay,
+          admin: adminPay,
+          mileage: mileagePay,
+          total: sessionPay + adminPay + mileagePay
+        };
       });
 
       const oldTotal = computed(() => oldBreakdown.value.total);
@@ -379,6 +409,7 @@
         const adminPay = adminHours * rate;
 
         const travelPay = inputs.value.travelHours * rate;
+        const mileagePay = inputs.value.mileage;
 
         // For rate chart calculation
         const totalBillableHours = totalSessionHours + adminHours + inputs.value.travelHours;
@@ -388,8 +419,9 @@
           sessionHours: totalSessionHours,
           admin: adminPay,
           travel: travelPay,
+          mileage: mileagePay,
           totalBillableHours: totalBillableHours,
-          total: sessionPay + adminPay + travelPay
+          total: sessionPay + adminPay + travelPay + mileagePay
         };
       });
 
@@ -409,8 +441,12 @@
       const breakEvenRate = computed(() => {
         const hours = newBreakdown.value.totalBillableHours;
         const fixedBonus = totalSessions.value * 30;
+
+        // Remove mileage from comparison since it is equal on both sides
+        const oldPayWithoutMileage = oldBreakdown.value.sessions + oldBreakdown.value.admin;
+
         if (hours === 0) return 0;
-        return (oldTotal.value - fixedBonus) / hours;
+        return (oldPayWithoutMileage - fixedBonus) / hours;
       });
 
       const formatCurrency = (val) => {
@@ -430,8 +466,8 @@
         const ctx = document.getElementById('payChart');
         if(!ctx) return;
 
-        const oldData = [oldBreakdown.value.sessions, oldBreakdown.value.admin, 0];
-        const newData = [newBreakdown.value.sessions, newBreakdown.value.admin, newBreakdown.value.travel];
+        const oldData = [oldBreakdown.value.sessions, oldBreakdown.value.admin, 0, oldBreakdown.value.mileage];
+        const newData = [newBreakdown.value.sessions, newBreakdown.value.admin, newBreakdown.value.travel, newBreakdown.value.mileage];
 
         if (barChartInstance) {
           barChartInstance.data.datasets[0].data = oldData;
@@ -441,7 +477,7 @@
           barChartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Session Income', 'Admin/Backend', 'Travel Pay'],
+              labels: ['Session Income', 'Admin/Backend', 'Travel Pay', 'Mileage'],
               datasets: [
                 { label: 'Current Structure', data: oldData, backgroundColor: '#94a3b8', borderRadius: 4, barPercentage: 0.6 },
                 { label: 'Proposed Structure', data: newData, backgroundColor: '#6366f1', borderRadius: 4, barPercentage: 0.6 }
@@ -472,9 +508,9 @@
         const endRate = 40;
         const step = 1;
 
-        const fixedOld = oldTotal.value;
+        const fixedOld = oldTotal.value; // Includes mileage
         const billableHours = newBreakdown.value.totalBillableHours;
-        const fixedBonus = totalSessions.value * 30;
+        const fixedBonus = (totalSessions.value * 30) + inputs.value.mileage; // Include mileage in fixed component
 
         for(let r = startRate; r <= endRate; r += step) {
           labels.push('$' + r);
