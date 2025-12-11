@@ -294,6 +294,24 @@
           </tfoot>
         </table>
       </div>
+
+      <!-- Rate Sensitivity Chart -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-2">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">Rate Sensitivity Analysis</h3>
+            <p class="text-sm text-slate-500 mt-1">How weekly pay changes with different hourly rates</p>
+          </div>
+          <div class="text-right bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100" v-if="breakEvenRate > 0 && isFinite(breakEvenRate)">
+            <div class="text-xs font-bold uppercase text-emerald-800 tracking-wider mb-1">Break Even Rate</div>
+            <div class="text-xl font-bold text-emerald-600">{{ formatCurrency(breakEvenRate) }}/hr</div>
+            <div class="text-[10px] text-emerald-600/70">Proposed must be higher than this</div>
+          </div>
+        </div>
+        <div class="relative h-[300px] w-full">
+          <canvas id="rateChart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -362,11 +380,15 @@
 
         const travelPay = inputs.value.travelHours * rate;
 
+        // For rate chart calculation
+        const totalBillableHours = totalSessionHours + adminHours + inputs.value.travelHours;
+
         return {
           sessions: sessionPay,
           sessionHours: totalSessionHours,
           admin: adminPay,
           travel: travelPay,
+          totalBillableHours: totalBillableHours,
           total: sessionPay + adminPay + travelPay
         };
       });
@@ -383,83 +405,136 @@
         return 'bg-slate-50 border-slate-200 text-slate-500';
       });
 
+      // 6. Break Even Calculation
+      const breakEvenRate = computed(() => {
+        const hours = newBreakdown.value.totalBillableHours;
+        const fixedBonus = totalSessions.value * 30;
+        if (hours === 0) return 0;
+        return (oldTotal.value - fixedBonus) / hours;
+      });
+
       const formatCurrency = (val) => {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
       };
 
-      // 6. Chart Logic
-      let chartInstance = null;
-      const updateChart = () => {
+      // 7. Charts
+      let barChartInstance = null;
+      let rateChartInstance = null;
+
+      const updateCharts = () => {
+        updateBarChart();
+        updateRateChart();
+      };
+
+      const updateBarChart = () => {
         const ctx = document.getElementById('payChart');
         if(!ctx) return;
 
         const oldData = [oldBreakdown.value.sessions, oldBreakdown.value.admin, 0];
         const newData = [newBreakdown.value.sessions, newBreakdown.value.admin, newBreakdown.value.travel];
 
-        if (chartInstance) {
-          chartInstance.data.datasets[0].data = oldData;
-          chartInstance.data.datasets[1].data = newData;
-          chartInstance.update();
+        if (barChartInstance) {
+          barChartInstance.data.datasets[0].data = oldData;
+          barChartInstance.data.datasets[1].data = newData;
+          barChartInstance.update();
         } else {
-          chartInstance = new Chart(ctx, {
+          barChartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
               labels: ['Session Income', 'Admin/Backend', 'Travel Pay'],
               datasets: [
+                { label: 'Current Structure', data: oldData, backgroundColor: '#94a3b8', borderRadius: 4, barPercentage: 0.6 },
+                { label: 'Proposed Structure', data: newData, backgroundColor: '#6366f1', borderRadius: 4, barPercentage: 0.6 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: { beginAtZero: true, grid: { color: '#f1f5f9', drawBorder: false }, ticks: { callback: v => '$' + v }, border: { display: false } },
+                x: { grid: { display: false }, border: { display: false } }
+              }
+            }
+          });
+        }
+      };
+
+      const updateRateChart = () => {
+        const ctx = document.getElementById('rateChart');
+        if(!ctx) return;
+
+        const labels = [];
+        const oldLine = [];
+        const newLine = [];
+
+        const startRate = 15;
+        const endRate = 40;
+        const step = 1;
+
+        const fixedOld = oldTotal.value;
+        const billableHours = newBreakdown.value.totalBillableHours;
+        const fixedBonus = totalSessions.value * 30;
+
+        for(let r = startRate; r <= endRate; r += step) {
+          labels.push('$' + r);
+          oldLine.push(fixedOld);
+          newLine.push((billableHours * r) + fixedBonus);
+        }
+
+        if(rateChartInstance) {
+          rateChartInstance.data.labels = labels;
+          rateChartInstance.data.datasets[0].data = oldLine;
+          rateChartInstance.data.datasets[1].data = newLine;
+          rateChartInstance.update();
+        } else {
+          rateChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [
                 {
-                  label: 'Current Structure',
-                  data: oldData,
+                  label: 'Current Pay',
+                  data: oldLine,
+                  borderColor: '#94a3b8',
                   backgroundColor: '#94a3b8',
-                  borderRadius: 4,
-                  barPercentage: 0.6,
-                  categoryPercentage: 0.8
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  borderDash: [5, 5]
                 },
                 {
-                  label: 'Proposed Structure',
-                  data: newData,
-                  backgroundColor: '#6366f1',
-                  borderRadius: 4,
-                  barPercentage: 0.6,
-                  categoryPercentage: 0.8
+                  label: 'Proposed Pay',
+                  data: newLine,
+                  borderColor: '#8b5cf6', // violet-500
+                  backgroundColor: '#8b5cf6',
+                  borderWidth: 3,
+                  pointRadius: 0,
+                  pointHoverRadius: 6
                 }
               ]
             },
             options: {
               responsive: true,
               maintainAspectRatio: false,
+              interaction: { mode: 'index', intersect: false },
               plugins: {
-                legend: { display: false },
+                legend: { position: 'bottom' },
                 tooltip: {
-                  backgroundColor: '#1e293b',
-                  padding: 12,
-                  cornerRadius: 8,
                   callbacks: {
                     label: function(context) {
-                      let label = context.dataset.label || '';
-                      if (label) {
-                        label += ': ';
-                      }
-                      if (context.parsed.y !== null) {
-                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                      }
-                      return label;
+                      return context.dataset.label + ': ' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
                     }
                   }
                 }
               },
               scales: {
                 y: {
-                  beginAtZero: true,
-                  grid: { color: '#f1f5f9', drawBorder: false },
-                  ticks: {
-                    color: '#94a3b8',
-                    callback: function(value) { return '$' + value; }
-                  },
+                  grid: { color: '#f1f5f9' },
+                  ticks: { callback: v => '$' + v },
                   border: { display: false }
                 },
                 x: {
                   grid: { display: false },
-                  ticks: { color: '#64748b', font: { weight: '600' } },
                   border: { display: false }
                 }
               }
@@ -468,14 +543,14 @@
         }
       };
 
-      watch([inputs, config], () => { updateChart(); }, { deep: true });
-      onMounted(() => { updateChart(); });
+      watch([inputs, config], () => { updateCharts(); }, { deep: true });
+      onMounted(() => { updateCharts(); });
 
       return {
         inputs, config, totalSessions,
         oldTotal, newTotal, difference,
         diffPrefix, diffColorClass, formatCurrency,
-        oldBreakdown, newBreakdown
+        oldBreakdown, newBreakdown, breakEvenRate
       };
     }
   }).mount('#app');
